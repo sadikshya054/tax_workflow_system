@@ -1,0 +1,326 @@
+{% extends "base_dashboard.html" %}
+
+{% load static %}
+
+{% block extra_styles %}
+
+<!-- Styling specifically for the document pages. -->
+<link
+    rel="stylesheet"
+    href="{% static 'documents/css/documents.css' %}"
+>
+
+{% endblock %}
+
+{% block title %}My Documents | Tax Workflow System{% endblock %}
+
+{% block content %}
+
+<!-- Main container for the Client document page. -->
+<div class="documents-container">
+
+    <!-- Returns the Client to the dashboard. -->
+    {% comment %} <a
+        href="{% url 'client_dashboard' %}"
+        class="back-link"
+    >
+        ← Back to Dashboard
+    </a> {% endcomment %}
+
+    <!-- Page heading and description. -->
+    <div class="page-header">
+        <h1>My Documents</h1>
+
+        <p>
+            Manage your required documents and track their review progress.
+        </p>
+    </div>
+
+    <!-- Allows the Client to upload a document. -->
+    <a
+        href="{% url 'upload_document' %}"
+        class="primary-button"
+    >
+        Upload New Document
+    </a>
+
+
+    <!-- Documents that the Client still needs to provide. -->
+    <section class="document-section">
+
+        <div class="section-heading">
+            <h2>Documents Required</h2>
+
+            <span class="section-count">
+                {{ required_documents|length }}
+            </span>
+        </div>
+
+        {% if required_documents %}
+
+            {% for requirement in required_documents %}
+
+                <div class="document-card">
+
+                    <h3>{{ requirement.document_name }}</h3>
+
+                    {% if requirement.description %}
+                        <p class="document-info">
+                            <strong>Instructions:</strong>
+                            {{ requirement.description }}
+                        </p>
+                    {% endif %}
+
+                    <p class="document-info">
+                        <strong>Status:</strong>
+                        Required
+                    </p>
+
+                    <div class="document-actions">
+
+                        <a
+                            href="{% url 'upload_document' %}"
+                            class="submit-button"
+                        >
+                            Upload Document
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty-message">
+                You have no outstanding document requirements.
+            </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- Documents uploaded by the Client but not yet submitted for review. -->
+    <section class="document-section">
+
+        <div class="section-heading">
+            <h2>Uploaded Documents — Not Yet Submitted</h2>
+
+            <span class="section-count">
+                {{ pending_documents|length }}
+            </span>
+        </div>
+
+        {% if pending_documents %}
+
+            {% for document in pending_documents %}
+
+                <div class="document-card">
+
+                    <h3>{{ document.file.name }}</h3>
+
+                    <p class="document-info">
+                        <strong>Document Type:</strong>
+
+                        {% if document.requirement %}
+                            {{ document.requirement.document_name }}
+                        {% else %}
+                            Not specified
+                        {% endif %}
+                    </p>
+
+                    <p class="document-info">
+                        <strong>Uploaded:</strong>
+                        {{ document.uploaded_at }}
+                    </p>
+
+                    <p class="document-info">
+                        <strong>Status:</strong>
+                        Not Yet Submitted
+                    </p>
+
+                    <!-- Allows the Client to submit the document for Staff review. -->
+                    <div class="document-actions">
+
+                        <form
+                            method="POST"
+                            action="{% url 'submit_document' document.id %}"
+                        >
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="submit-button"
+                            >
+                                Submit for Review
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty-message">
+                No uploaded documents are waiting to be submitted.
+            </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- Documents submitted by the Client and waiting for Staff review. -->
+    <section class="document-section">
+
+        <div class="section-heading">
+            <h2>Awaiting Review</h2>
+
+            <span class="section-count">
+                {{ awaiting_review|length }}
+            </span>
+        </div>
+
+        {% if awaiting_review %}
+
+            {% for document in awaiting_review %}
+
+                <div class="document-card">
+
+                    <h3>{{ document.file.name }}</h3>
+
+                    <p class="document-info">
+                        <strong>Document Type:</strong>
+
+                        {% if document.requirement %}
+                            {{ document.requirement.document_name }}
+                        {% else %}
+                            Not specified
+                        {% endif %}
+                    </p>
+
+                    <p class="document-info">
+                        <strong>Submitted:</strong>
+                        {{ document.uploaded_at }}
+                    </p>
+
+                    <p class="document-info">
+                        <strong>Status:</strong>
+                        Awaiting Staff Review
+                    </p>
+
+                    <div class="document-actions">
+
+                        <a
+                            href="{% url 'document_detail' document.id %}"
+                            class="view-button"
+                        >
+                            View Details
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty-message">
+                No documents are currently awaiting review.
+            </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- Documents that Staff have already reviewed. -->
+    <section class="document-section">
+
+        <div class="section-heading">
+            <h2>Reviewed Documents</h2>
+
+            <span class="section-count">
+                {{ reviewed_documents|length }}
+            </span>
+        </div>
+
+        {% if reviewed_documents %}
+
+            {% for document in reviewed_documents %}
+
+                <div class="document-card">
+
+                    <h3>{{ document.file.name }}</h3>
+
+                    <p class="document-info">
+                        <strong>Document Type:</strong>
+
+                        {% if document.requirement %}
+                            {{ document.requirement.document_name }}
+                        {% else %}
+                            Not specified
+                        {% endif %}
+                    </p>
+
+                    <p class="document-info">
+                        <strong>Reviewed Status:</strong>
+                        Reviewed
+                    </p>
+
+                    <!-- Displays feedback provided by Staff. -->
+                    <div class="feedback-section">
+
+                        <strong>Staff Feedback</strong>
+
+                        {% for feedback in document.feedback.all %}
+
+                            <p class="feedback-message">
+                                {{ feedback.message }}
+                            </p>
+
+                        {% empty %}
+
+                            <p class="feedback-message">
+                                No feedback has been added.
+                            </p>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <div class="document-actions">
+
+                        <a
+                            href="{% url 'document_detail' document.id %}"
+                            class="view-button"
+                        >
+                            View Details
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty-message">
+                You do not have any reviewed documents yet.
+            </div>
+
+        {% endif %}
+
+    </section>
+
+</div>
+
+{% endblock %}

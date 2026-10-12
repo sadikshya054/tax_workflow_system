@@ -1,0 +1,299 @@
+/* Applies consistent sizing to page elements. */
+* {
+    box-sizing: border-box;
+}
+
+/* Main task page styling. */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f7fa;
+    color: #263238;
+}
+
+/* Main page container. */
+.tasks-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 45px 30px;
+}
+
+/* Page heading section. */
+.page-header {
+    margin-bottom: 25px;
+}
+
+/* Main page title. */
+.page-header h1 {
+    margin: 0 0 8px;
+    color: #1f2933;
+    font-size: 30px;
+}
+
+/* Page description. */
+.page-header p {
+    margin: 0;
+    color: #68737d;
+}
+
+/* Individual task card. */
+.task-card {
+    background: white;
+    border: 1px solid #e2e7ec;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Task title. */
+.task-card h3 {
+    margin-top: 0;
+    margin-bottom: 18px;
+    color: #1f4e79;
+    font-size: 20px;
+}
+
+/* Task information. */
+.task-info {
+    margin-bottom: 10px;
+    color: #4f5b66;
+    line-height: 1.5;
+}
+
+/* Task status area. */
+.task-status {
+    display: inline-block;
+    padding: 6px 11px;
+    margin-bottom: 12px;
+    border-radius: 5px;
+    background: #e8eef4;
+    color: #1f4e79;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Completion form area. */
+.task-actions {
+    margin-top: 20px;
+}
+
+/* Complete task button. */
+.complete-button {
+    border: none;
+    background: #1f4e79;
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Complete button hover effect. */
+.complete-button:hover {
+    background: #163a5c;
+}
+
+/* Empty task message. */
+.empty-message {
+    background: white;
+    border: 1px solid #e2e7ec;
+    border-radius: 10px;
+    padding: 25px;
+    color: #68737d;
+}
+
+/* Improves the page on smaller screens. */
+@media (max-width: 700px) {
+
+    .tasks-container {
+        padding: 30px 20px;
+    }
+}
+
+/* Main button for creating a new task. */
+.primary-task-button {
+    display: inline-block;
+    background: #1f4e79;
+    color: white;
+    text-decoration: none;
+    padding: 11px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* Create task button hover effect. */
+.primary-task-button:hover {
+    background: #163a5c;
+}
+
+/* Task heading and status layout. */
+.task-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+/* Removes unnecessary spacing from the assigned Client information. */
+.task-header .task-info {
+    margin-bottom: 0;
+}
+
+/* Improves the task status appearance. */
+.task-header .task-status {
+    white-space: nowrap;
+}
+
+/* Improves the Staff task page on smaller screens. */
+@media (max-width: 700px) {
+
+    .task-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .task-header .task-status {
+        width: fit-content;
+    }
+}
+
+/* Main container for the task creation page. */
+.task-form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 45px 30px;
+}
+
+/* Task creation form card. */
+.task-form-card {
+    background: white;
+    border: 1px solid #e2e7ec;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Space between form fields. */
+.task-form-card p {
+    margin-bottom: 20px;
+}
+
+/* Form labels. */
+.task-form-card label {
+    display: block;
+    margin-bottom: 7px;
+    color: #263238;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Text fields, date field and dropdown. */
+.task-form-card input,
+.task-form-card select,
+.task-form-card textarea {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #ccd5dd;
+    border-radius: 6px;
+    background: white;
+    color: #263238;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+/* Allows the description field to resize vertically. */
+.task-form-card textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+/* Form field focus effect. */
+.task-form-card input:focus,
+.task-form-card select:focus,
+.task-form-card textarea:focus {
+    outline: none;
+    border-color: #1f4e79;
+}
+
+/* Help text displayed by Django forms. */
+.task-form-card .helptext {
+    display: block;
+    margin-top: 5px;
+    color: #68737d;
+    font-size: 12px;
+}
+
+/* Form validation errors. */
+.task-form-card .errorlist {
+    margin: 5px 0 8px;
+    padding: 0;
+    color: #a33a3a;
+    font-size: 13px;
+    list-style: none;
+}
+
+/* Create task button. */
+.create-task-button {
+    border: none;
+    background: #1f4e79;
+    color: white;
+    padding: 11px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Create task button hover effect. */
+.create-task-button:hover {
+    background: #163a5c;
+}
+
+/* Improves the form on smaller screens. */
+@media (max-width: 700px) {
+
+    .task-form-container {
+        padding: 30px 20px;
+    }
+
+    .task-form-card {
+        padding: 22px;
+    }
+}
+
+/* Styles the document requirements section. */
+.requirements-section {
+    margin-top: 35px;
+}
+
+.requirements-section h2,
+.task-form-card h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #1f4e79;
+    font-size: 20px;
+}
+
+/* Places task actions at the bottom-right of the task card. */
+.task-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+/* Positions the Back to Dashboard link near the top-left. */
+.back-link {
+    display: inline-block;
+    margin-top: -10px;
+    margin-left: -20px;
+    margin-bottom: 24px;
+    color: #1f4e79;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Back link hover effect. */
+.back-link:hover {
+    text-decoration: underline;
+}

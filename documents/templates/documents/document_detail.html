@@ -1,0 +1,144 @@
+{% extends "base_dashboard.html" %}
+
+{% load static %}
+
+{% block title %}Document Details | Tax Workflow System{% endblock %}
+
+{% block extra_styles %}
+
+<!-- Styling specifically for the document pages. -->
+<link
+    rel="stylesheet"
+    href="{% static 'documents/css/documents.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Main container for the document details page. -->
+<div class="document-detail-container">
+
+    <!-- Returns the user to the correct document list based on their role. -->
+    {% if request.user.role == 'STAFF' %}
+
+        <a
+            href="{% url 'staff_documents' %}"
+            class="back-link"
+        >
+            ← Back to Staff Documents
+        </a>
+
+    {% else %}
+
+        <a
+            href="{% url 'my_documents' %}"
+            class="back-link"
+        >
+            ← Back to My Documents
+        </a>
+
+    {% endif %}
+
+    <!-- Page heading. -->
+    <div class="page-header">
+
+        <h1>Document Details</h1>
+
+        <p>
+            View document information and Staff feedback.
+        </p>
+
+    </div>
+
+    <!-- Document information card. -->
+    <div class="detail-card">
+
+        <h3>Document Information</h3>
+
+        <div class="detail-row">
+
+            <strong>File:</strong>
+
+            <span>
+                {{ document.file.name }}
+            </span>
+
+        </div>
+
+        <div class="detail-row">
+
+            <strong>Status:</strong>
+
+            <span class="detail-status">
+                {{ document.get_status_display }}
+            </span>
+
+        </div>
+
+        <div class="detail-row">
+
+            <strong>Uploaded:</strong>
+
+            <span>
+                {{ document.uploaded_at }}
+            </span>
+
+        </div>
+
+        <!-- Opens the document through the protected view. -->
+        <a
+            href="{% url 'serve_document' document.id %}"
+            target="_blank"
+        >
+            View Document
+        </a>
+
+    </div>
+
+    <!-- Staff feedback section. -->
+    <div class="feedback-detail-card">
+
+        <h2>Staff Feedback</h2>
+
+        {% for feedback in document.feedback.all %}
+
+            <div class="feedback-item">
+
+                <p>
+                    <strong>Feedback:</strong>
+                </p>
+
+                <p class="feedback-text">
+                    {{ feedback.message }}
+                </p>
+
+                <div class="feedback-meta">
+
+                    <span>
+                        <strong>Added by:</strong>
+                        {{ feedback.staff.username }}
+                    </span>
+
+                    <span>
+                        <strong>Date:</strong>
+                        {{ feedback.created_at }}
+                    </span>
+
+                </div>
+
+            </div>
+
+        {% empty %}
+
+            <p class="no-feedback">
+                No Staff feedback has been added yet.
+            </p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

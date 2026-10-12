@@ -1,0 +1,106 @@
+{% extends "base_dashboard.html" %}
+
+{% load static %}
+
+{% block title %}Upload Document | Tax Workflow System{% endblock %}
+
+{% block extra_styles %}
+
+<!-- Styling for the Document Upload page. -->
+<link
+    rel="stylesheet"
+    href="{% static 'documents/css/documents.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Main container for the Client document upload page. -->
+<div class="upload-container">
+
+    <!-- Page heading and description. -->
+    <div class="page-header">
+
+        <h1>Upload Document</h1>
+
+        <p>
+            Upload a PDF, JPG, or PNG file. Maximum size: 10 MB.
+        </p>
+
+    </div>
+
+    <!-- Upload form card. -->
+    <div class="upload-card">
+
+        <form
+            method="post"
+            enctype="multipart/form-data"
+        >
+
+            <!-- Protects the form against CSRF attacks. -->
+            {% csrf_token %}
+
+            <!-- Document type field. -->
+            <div class="upload-field">
+
+                <label for="{{ form.requirement.id_for_label }}">
+                    Document Type
+                </label>
+
+                {{ form.requirement }}
+
+                <!-- Shows Document Type errors below the field. -->
+                {% if form.requirement.errors %}
+
+                    {% for error in form.requirement.errors %}
+
+                        <div class="upload-field-error">
+                            {{ error }}
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            </div>
+
+            <!-- File upload field. -->
+            <div class="upload-field">
+
+                <label for="{{ form.file.id_for_label }}">
+                    Upload File
+                </label>
+
+                {{ form.file }}
+
+                <!-- Shows file validation errors directly below the file input. -->
+                {% if form.file.errors %}
+
+                    {% for error in form.file.errors %}
+
+                        <div class="upload-field-error">
+                            {{ error }}
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            </div>
+
+            <!-- Upload button. -->
+            <button
+                type="submit"
+                class="upload-button"
+            >
+                Upload Document
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

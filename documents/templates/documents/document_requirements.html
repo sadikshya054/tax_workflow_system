@@ -1,0 +1,155 @@
+{% extends "base_dashboard.html" %}
+
+{% load static %}
+
+{% block title %}Document Requirements | Tax Workflow System{% endblock %}
+
+{% block extra_styles %}
+
+<!-- Styling used by the task and document requirement pages. -->
+<link
+    rel="stylesheet"
+    href="{% static 'documents/css/tasks.css' %}"
+>
+
+<link
+    rel="stylesheet"
+    href="{% static 'documents/css/documents.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Main container for the Staff document requirements page. -->
+<div class="tasks-container">
+
+    <!-- Returns Staff to the dashboard. -->
+    {% comment %} <a
+        href="{% url 'staff_dashboard' %}"
+        class="back-link"
+    >
+        ← Back to Staff Dashboard
+    </a> {% endcomment %}
+
+    <!-- Page heading and description. -->
+    <div class="page-header">
+
+        <h1>Document Requirements</h1>
+
+        <p>
+            Create and manage documents that Clients are required to submit.
+        </p>
+
+    </div>
+
+    <!-- Form for creating a new document requirement. -->
+    <div class="task-form-card">
+
+        <h2>Create Document Requirement</h2>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button
+                type="submit"
+                class="create-task-button"
+            >
+                Add Requirement
+            </button>
+
+        </form>
+
+    </div>
+
+    <!-- Displays existing document requirements. -->
+    <div class="requirements-section">
+
+        <h2>Current Requirements</h2>
+
+        {% if requirements %}
+
+            {% for requirement in requirements %}
+
+                <div class="task-card">
+
+                    <!-- Requirement name and Client. -->
+                    <div class="task-header">
+
+                        <div>
+
+                            <h3>
+                                {{ requirement.document_name }}
+                            </h3>
+
+                            <p class="task-info">
+                                <strong>Client:</strong>
+                                {{ requirement.client.username }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Requirement instructions. -->
+                    {% if requirement.description %}
+
+                        <p class="task-info">
+
+                            <strong>Instructions:</strong>
+                            {{ requirement.description }}
+
+                        </p>
+
+                    {% endif %}
+
+                    <!-- Requirement creation date. -->
+                    <p class="task-info">
+
+                        <strong>Created:</strong>
+                        {{ requirement.created_at }}
+
+                    </p>
+
+                    <!-- Places the Delete button at the bottom-right. -->
+                    <div class="task-actions">
+
+                        <form
+                            method="POST"
+                            action="{% url 'delete_document_requirement' requirement.id %}"
+                            onsubmit="return confirm('Are you sure you want to delete this document requirement?');"
+                        >
+
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="delete-button"
+                            >
+                                Delete
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <div class="empty-message">
+                No document requirements have been created yet.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,325 @@
+{% extends "base_dashboard.html" %}
+
+{% load static %}
+
+{% block title %}Staff Documents | Tax Workflow System{% endblock %}
+
+{% block extra_styles %}
+
+<!-- Styling specifically for the document pages. -->
+<link
+    rel="stylesheet"
+    href="{% static 'documents/css/documents.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Main container for the Staff document management page. -->
+<div class="documents-container">
+
+    <!-- Returns Staff to the dashboard. -->
+    {% comment %} <a
+        href="{% url 'staff_dashboard' %}"
+        class="back-link"
+    >
+        ← Back to Staff Dashboard
+    </a> {% endcomment %}
+
+    <!-- Page heading and description. -->
+    <div class="page-header">
+
+        <h1>Submitted Documents</h1>
+
+        <p>
+            Review documents submitted by Clients and provide feedback.
+        </p>
+
+    </div>
+
+    <!-- Allows Staff to filter documents by Client and status. -->
+    <div class="document-filter">
+
+        <form method="GET">
+
+            <!-- Client username filter. -->
+            <div class="filter-field">
+
+                <label for="client">
+                    Client
+                </label>
+
+                <select
+                    name="client"
+                    id="client"
+                >
+
+                    <option value="">
+                        All Clients
+                    </option>
+
+                    {% for client in clients %}
+
+                        <option
+                            value="{{ client.username }}"
+                            {% if selected_client == client.username %}selected{% endif %}
+                        >
+                            {{ client.username }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- Document status filter. -->
+            <div class="filter-field">
+
+                <label for="status">
+                    Status
+                </label>
+
+                <select
+                    name="status"
+                    id="status"
+                >
+
+                    <option value="">
+                        All Statuses
+                    </option>
+
+                    <option
+                        value="SUBMITTED"
+                        {% if selected_status == "SUBMITTED" %}selected{% endif %}
+                    >
+                        Submitted
+                    </option>
+
+                    <option
+                        value="REVIEWED"
+                        {% if selected_status == "REVIEWED" %}selected{% endif %}
+                    >
+                        Reviewed
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- Applies the selected filters. -->
+            <button
+                type="submit"
+                class="filter-button"
+            >
+                Filter
+            </button>
+
+
+            <!-- Clears the selected filters. -->
+            <a
+                href="{% url 'staff_documents' %}"
+                class="clear-filter-button"
+            >
+                Clear
+            </a>
+
+        </form>
+
+    </div>
+
+    <!-- Displays documents that are waiting for Staff review. -->
+    {% if selected_status != "REVIEWED" %}
+
+        <section>
+
+            <h2>Documents to Review</h2>
+
+            {% if submitted_documents %}
+
+                {% for document in submitted_documents %}
+
+                    <div class="staff-document-card">
+
+                        <!-- Document information. -->
+                        <div class="staff-document-header">
+
+                            <div>
+
+                                <h3>
+                                    {{ document.file.name }}
+                                </h3>
+
+                                <p class="document-info">
+                                    <strong>Client:</strong>
+                                    {{ document.owner.username }}
+                                </p>
+
+                            </div>
+
+                            <div class="staff-status">
+                                {{ document.get_status_display }}
+                            </div>
+
+                        </div>
+
+                        <p class="document-info">
+                            <strong>Uploaded:</strong>
+                            {{ document.uploaded_at }}
+                        </p>
+
+                        <!-- Opens the document for Staff review. -->
+                        <div class="staff-document-actions">
+
+                            <a
+                                href="{% url 'document_detail' document.id %}"
+                                class="view-button"
+                            >
+                                View Document
+                            </a>
+
+                            <!-- Allows Staff to mark the document as reviewed. -->
+                            <form
+                                method="POST"
+                                action="{% url 'mark_as_reviewed' document.id %}"
+                            >
+
+                                {% csrf_token %}
+
+                                <button
+                                    type="submit"
+                                    class="review-button"
+                                >
+                                    Mark as Reviewed
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                        <!-- Staff feedback section. -->
+                        <div class="staff-feedback-section">
+
+                            <h4>Staff Feedback</h4>
+
+                            <form
+                                method="POST"
+                                action="{% url 'add_feedback' document.id %}"
+                            >
+
+                                {% csrf_token %}
+
+                                <label for="feedback-{{ document.id }}">
+                                    Feedback for Client
+                                </label>
+
+                                <textarea
+                                    id="feedback-{{ document.id }}"
+                                    name="message"
+                                    rows="4"
+                                    placeholder="Enter feedback for the Client..."
+                                    required
+                                ></textarea>
+
+                                <button
+                                    type="submit"
+                                    class="feedback-button"
+                                >
+                                    Add Feedback
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="empty-message">
+                    There are currently no documents waiting for review.
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    {% endif %}
+
+    <!-- Displays documents that Staff have already reviewed. -->
+    {% if selected_status != "SUBMITTED" %}
+
+        <section>
+
+            <h2>Reviewed Documents</h2>
+
+            {% if reviewed_documents %}
+
+                {% for document in reviewed_documents %}
+
+                    <div class="staff-document-card">
+
+                        <!-- Reviewed document information. -->
+                        <div class="staff-document-header">
+
+                            <div>
+
+                                <h3>
+                                    {{ document.file.name }}
+                                </h3>
+
+                                <p class="document-info">
+                                    <strong>Client:</strong>
+                                    {{ document.owner.username }}
+                                </p>
+
+                            </div>
+
+                            <!-- Shows the document's reviewed status. -->
+                            <div class="staff-status">
+                                {{ document.get_status_display }}
+                            </div>
+
+                        </div>
+
+                        <p class="document-info">
+                            <strong>Uploaded:</strong>
+                            {{ document.uploaded_at }}
+                        </p>
+
+                        <!-- Allows Staff to view the reviewed document. -->
+                        <div class="staff-document-actions">
+
+                            <a
+                                href="{% url 'document_detail' document.id %}"
+                                class="view-button"
+                            >
+                                View Document
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="empty-message">
+                    There are currently no reviewed documents.
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

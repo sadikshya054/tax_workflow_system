@@ -1,0 +1,123 @@
+/* Basic page layout and font settings. */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+}
+
+/* Centres the login card on the screen. */
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Main login container. */
+.login-card {
+    width: 100%;
+    max-width: 450px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Top section containing the system name. */
+.login-header {
+    background: #1f4e79;
+    color: white;
+    text-align: center;
+    padding: 35px 25px;
+}
+
+.login-header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.login-header p {
+    margin: 10px 0 0;
+    opacity: 0.9;
+}
+
+/* Main login form section. */
+.login-content {
+    padding: 35px;
+}
+
+.login-content h2 {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
+.login-subtitle {
+    margin-bottom: 30px;
+    color: #666;
+}
+
+/* Keeps each form field organised. */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+/* Styles the username and password fields. */
+.form-group input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+/* Highlights the field currently being used. */
+.form-group input:focus {
+    outline: none;
+    border-color: #1f4e79;
+}
+
+/* Main login button. */
+.login-button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    background: #1f4e79;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background: #163a5c;
+}
+
+/* Displays authentication errors. */
+.error-message {
+    margin-bottom: 20px;
+    padding: 12px;
+    border-radius: 6px;
+    background: #fdecea;
+    color: #b3261e;
+}
+
+/* Bottom security message. */
+.login-footer {
+    text-align: center;
+    padding: 18px;
+    border-top: 1px solid #eee;
+    color: #777;
+    font-size: 13px;
+}

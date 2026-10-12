@@ -1,0 +1,393 @@
+{% extends "base_dashboard.html" %}
+
+{% load static %}
+
+{% block title %}Review Tax Return | Tax Workflow System{% endblock %}
+
+{% block extra_styles %}
+
+<!-- Styling specifically for the Tax Return and document pages. -->
+<link
+    rel="stylesheet"
+    href="{% static 'documents/css/documents.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Main container for the Staff Tax Return review page. -->
+<div class="documents-container">
+
+    <!-- Returns Staff to the Tax Returns list. -->
+    <a
+        href="{% url 'staff_tax_returns' %}"
+        class="back-link"
+    >
+        ← Back to Tax Returns
+    </a>
+
+    <!-- Page heading. -->
+    <div class="page-header">
+
+        <h1>Review Tax Return</h1>
+
+        <p>
+            Review the Client's Tax Return information and supporting documents.
+        </p>
+
+    </div>
+
+
+    <!-- Client and Tax Return information. -->
+    <div class="detail-card">
+
+        <h3>Tax Return Information</h3>
+
+        <div class="detail-row">
+
+            <strong>Client:</strong>
+
+            <span>
+                {{ tax_return.client.username }}
+            </span>
+
+        </div>
+
+        <div class="detail-row">
+
+            <strong>Financial Year:</strong>
+
+            <span>
+                {{ tax_return.financial_year }}
+            </span>
+
+        </div>
+
+        <div class="detail-row">
+
+            <strong>TFN:</strong>
+
+            <span>
+                {{ tax_return.tfn }}
+            </span>
+
+        </div>
+
+        <div class="detail-row">
+
+            <strong>ABN:</strong>
+
+            <span>
+
+                {% if tax_return.abn %}
+                    {{ tax_return.abn }}
+                {% else %}
+                    Not provided
+                {% endif %}
+
+            </span>
+
+        </div>
+
+        <div class="detail-row">
+
+            <strong>Address:</strong>
+
+            <span>
+                {{ tax_return.address }}
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- Financial information. -->
+    <div class="detail-card">
+
+        <h3>Financial Information</h3>
+
+        <div class="detail-row">
+
+            <strong>Total Income:</strong>
+
+            <span>
+
+                {% if tax_return.total_income %}
+                    ${{ tax_return.total_income }}
+                {% else %}
+                    Not provided
+                {% endif %}
+
+            </span>
+
+        </div>
+
+        <div class="detail-row">
+
+            <strong>Tax Withheld:</strong>
+
+            <span>
+
+                {% if tax_return.tax_withheld %}
+                    ${{ tax_return.tax_withheld }}
+                {% else %}
+                    Not provided
+                {% endif %}
+
+            </span>
+
+        </div>
+
+        <div class="detail-row">
+
+            <strong>Deductions:</strong>
+
+            <span>
+
+                {% if tax_return.deductions %}
+                    ${{ tax_return.deductions }}
+                {% else %}
+                    Not provided
+                {% endif %}
+
+            </span>
+
+        </div>
+
+        <div class="detail-row">
+
+            <strong>Client Notes:</strong>
+
+            <span>
+
+                {% if tax_return.client_notes %}
+                    {{ tax_return.client_notes }}
+                {% else %}
+                    No additional notes provided.
+                {% endif %}
+
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- Supporting documents. -->
+    <div class="detail-card">
+
+        <h3>Supporting Documents</h3>
+
+        {% if supporting_documents %}
+
+            {% for document in supporting_documents %}
+
+                <div class="supporting-document-item">
+
+                    <div>
+
+                        <strong>
+                            {{ document.file.name }}
+                        </strong>
+
+                        <span>
+                            {{ document.get_status_display }}
+                        </span>
+
+                    </div>
+
+                    <!-- Opens the document through the protected view. -->
+                    <a
+                        href="{% url 'serve_document' document.id %}"
+                        class="view-button"
+                        target="_blank"
+                    >
+                        View Document
+                    </a>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p class="empty-message">
+                No supporting documents have been uploaded.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- Shows the appropriate Staff review information based on Tax Return status. -->
+    {% if tax_return.status == 'SUBMITTED' %}
+
+        <!-- Staff review section for Tax Returns waiting for review. -->
+        <div class="detail-card">
+
+            <h3>Staff Review</h3>
+
+            <p>
+                Enter the estimated tax outcome and any notes for the Client.
+            </p>
+
+            <!-- Form for completing the Tax Return review. -->
+            <form
+                method="POST"
+                class="staff-review-form"
+            >
+
+                {% csrf_token %}
+
+                <!-- Estimated tax refund field. -->
+                <div class="tax-field">
+
+                    <label for="{{ form.estimated_refund.id_for_label }}">
+                        {{ form.estimated_refund.label }}
+                    </label>
+
+                    {{ form.estimated_refund }}
+
+                    {% for error in form.estimated_refund.errors %}
+
+                        <p class="form-error">
+                            {{ error }}
+                        </p>
+
+                    {% endfor %}
+
+                </div>
+
+                <!-- Estimated amount payable field. -->
+                <div class="tax-field">
+
+                    <label for="{{ form.estimated_amount_payable.id_for_label }}">
+                        {{ form.estimated_amount_payable.label }}
+                    </label>
+
+                    {{ form.estimated_amount_payable }}
+
+                    {% for error in form.estimated_amount_payable.errors %}
+
+                        <p class="form-error">
+                            {{ error }}
+                        </p>
+
+                    {% endfor %}
+
+                </div>
+
+                <!-- Staff notes field. -->
+                <div class="tax-field">
+
+                    <label for="{{ form.staff_notes.id_for_label }}">
+                        {{ form.staff_notes.label }}
+                    </label>
+
+                    {{ form.staff_notes }}
+
+                    {% for error in form.staff_notes.errors %}
+
+                        <p class="form-error">
+                            {{ error }}
+                        </p>
+
+                    {% endfor %}
+
+                </div>
+
+                <!-- Completes the Staff review. -->
+                <button
+                    type="submit"
+                    class="submit-button"
+                >
+                    Complete Tax Return Review
+                </button>
+
+            </form>
+
+            <form
+                method="POST"
+                action="{% url 'discard_tax_return' tax_return.id %}"
+                style="display: inline-block; margin-top: 15px; margin-left: 10px;"
+            >
+
+                {% csrf_token %}
+
+                <!-- Discards the Tax Return without a confirmation popup. -->
+                <button
+                    type="submit"
+                    class="cancel-button"
+                >
+                    Discard Tax Return
+                </button>
+
+            </form>
+
+        </div>
+
+    {% elif tax_return.status == 'COMPLETED' %}
+
+        <!-- Read-only section for a completed Tax Return. -->
+        <div class="detail-card">
+
+            <h3>Tax Return Completed</h3>
+
+            <p>
+                This Tax Return has already been reviewed and completed.
+            </p>
+
+            <!-- Shows the estimated tax outcome entered by Staff. -->
+            {% if tax_return.estimated_refund %}
+
+                <div class="detail-row">
+
+                    <strong>Estimated Tax Refund:</strong>
+
+                    <span>
+                        ${{ tax_return.estimated_refund }}
+                    </span>
+
+                </div>
+
+            {% elif tax_return.estimated_amount_payable %}
+
+                <div class="detail-row">
+
+                    <strong>Estimated Amount Payable:</strong>
+
+                    <span>
+                        ${{ tax_return.estimated_amount_payable }}
+                    </span>
+
+                </div>
+
+            {% endif %}
+
+            <!-- Shows the Staff's review notes. -->
+            <div class="detail-row">
+
+                <strong>Staff Notes:</strong>
+
+                <span>
+
+                    {% if tax_return.staff_notes %}
+                        {{ tax_return.staff_notes }}
+                    {% else %}
+                        No Staff notes provided.
+                    {% endif %}
+
+                </span>
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

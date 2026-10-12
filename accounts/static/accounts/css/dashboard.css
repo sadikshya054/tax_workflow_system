@@ -1,0 +1,685 @@
+/* Applies consistent sizing to all page elements. */
+* {
+    box-sizing: border-box;
+}
+
+/* Main page styling. */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f7fa;
+    color: #263238;
+}
+
+/* Creates the sidebar and main content layout. */
+.dashboard-container {
+    min-height: 100vh;
+    display: flex;
+}
+
+/* Left navigation area. */
+.sidebar {
+    width: 250px;
+    min-height: 100vh;
+    flex-shrink: 0;
+    background: #1f4e79;
+    color: white;
+    padding: 32px 22px;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.25s ease, padding 0.25s ease;
+}
+
+/* System name in the sidebar. */
+.sidebar h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* Shows the current user role. */
+.user-role {
+    color: #d9e8f5;
+    margin: 8px 0 32px;
+    font-size: 14px;
+}
+
+/* Sidebar navigation links. */
+.sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Individual navigation links. */
+.sidebar nav a {
+    color: white;
+    text-decoration: none;
+    padding: 13px 14px;
+    border-radius: 6px;
+    font-size: 15px;
+    transition: background 0.2s ease;
+}
+
+/* Navigation hover effect. */
+.sidebar nav a:hover {
+    background: #163a5c;
+}
+
+/* Styles the logout button at the bottom of the account section. */
+.logout-button {
+    display: block;
+    margin-top: 8px;
+    color: white;
+    text-decoration: none;
+    padding: 12px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 6px;
+    transition: background 0.2s ease;
+}
+
+/* Logout hover effect. */
+.logout-button:hover {
+    background: #163a5c;
+}
+
+/* Keeps account actions together at the bottom of the sidebar. */
+.account-section {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Styles the Change Password account link. */
+.change-password-link {
+    display: block;
+    padding: 10px 15px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+}
+
+/* Highlights the Change Password link when hovered. */
+.change-password-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dashboard-content {
+    flex: 1;
+    width: 100%;
+    padding: 15px 45px;
+    max-width: 1400px;
+}
+
+/* Dashboard title section. */
+.dashboard-header {
+    margin-bottom: 35px;
+}
+
+/* Main dashboard heading. */
+.dashboard-header h1 {
+    margin: 0 0 8px;
+    font-size: 30px;
+    font-weight: 600;
+    color: #1f2933;
+}
+
+/* Dashboard subtitle. */
+.dashboard-header p {
+    margin: 0;
+    color: #68737d;
+    font-size: 15px;
+}
+
+/* Creates the dashboard card layout. */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+/* Individual dashboard cards. */
+.dashboard-card {
+    background: white;
+    padding: 28px;
+    border-radius: 10px;
+    border: 1px solid #e2e7ec;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Subtle card hover effect. */
+.dashboard-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+/* Card headings. */
+.dashboard-card h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #1f4e79;
+    font-size: 19px;
+}
+
+/* Card descriptions. */
+.dashboard-card p {
+    color: #68737d;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Links inside dashboard cards. */
+.dashboard-card a {
+    display: inline-block;
+    background: #1f4e79;
+    color: white;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: background 0.2s ease;
+}
+
+/* Card link hover effect. */
+.dashboard-card a:hover {
+    background: #163a5c;
+}
+
+/* Improves the layout on smaller screens. */
+@media (max-width: 768px) {
+
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-height: auto;
+    }
+
+    .sidebar nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .sidebar nav a {
+        flex: 1;
+        min-width: 120px;
+        text-align: center;
+    }
+
+    .logout-button {
+        margin-top: 25px;
+    }
+
+    .dashboard-content {
+        padding: 25px;
+    }
+}
+
+/* Keeps the dashboard heading and notification bell on opposite sides. */
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+}
+
+/* Places the notification bell neatly in the top-right area. */
+.notification-wrapper {
+    position: relative;
+    margin-left: auto;
+    margin-top: 2px;
+}
+
+/* Styles the notification bell. */
+.notification-button {
+    position: relative;
+    width: 52px;
+    height: 52px;
+    border: 1px solid #d9e1e8;
+    border-radius: 50%;
+    background: white;
+    color: #1f4e79;
+    font-size: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Gives the bell a subtle hover effect. */
+.notification-button:hover {
+    background: #f5f8fb;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.10);
+}
+
+/* Shows the number of unread notifications. */
+.notification-count {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    min-width: 21px;
+    height: 21px;
+    padding: 0 5px;
+    border-radius: 11px;
+    background: #1f4e79;
+    color: white;
+    font-size: 11px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+}
+
+/* Creates the notification dropdown panel. */
+.notification-panel {
+    display: none;
+    position: absolute;
+    top: 62px;
+    right: 0;
+    width: 350px;
+    background: white;
+    border: 1px solid #e2e7ec;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    z-index: 100;
+}
+
+/* Displays the notification panel when it is opened. */
+.notification-panel.show {
+    display: block;
+}
+
+/* Notification panel heading. */
+.notification-panel-header {
+    padding: 16px 18px;
+    border-bottom: 1px solid #e2e7ec;
+    color: #1f2933;
+    font-size: 15px;
+}
+
+/* Individual notification. */
+.notification-item {
+    padding: 14px 18px;
+    border-bottom: 1px solid #edf0f2;
+}
+
+/* Highlights unread notifications. */
+.notification-item.unread {
+    background: #f5f8fb;
+}
+
+/* Keeps long notification messages inside the notification box. */
+.notification-item p {
+    margin: 0 0 6px;
+    color: #263238;
+    font-size: 14px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+/* Notification date and time. */
+.notification-item small {
+    color: #68737d;
+    font-size: 11px;
+}
+
+/* Message shown when there are no notifications. */
+.notification-empty {
+    padding: 20px;
+    color: #68737d;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Keeps the notification panel usable on smaller screens. */
+@media (max-width: 700px) {
+    .notification-panel {
+        width: 300px;
+        right: -5px;
+    }
+
+    .notification-button {
+        width: 48px;
+        height: 48px;
+        font-size: 23px;
+    }
+}
+
+/* Removes the default form spacing from notifications. */
+.notification-form {
+    margin: 0;
+}
+
+/* Makes each notification behave like a clickable item. */
+.notification-item {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #edf0f2;
+    background: white;
+    text-align: left;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+}
+
+/* Gives clickable notifications a subtle hover effect. */
+.notification-item:hover {
+    background: #f5f8fb;
+}
+
+/* Keeps unread notifications visually highlighted. */
+.notification-item.unread {
+    background: #f5f8fb;
+}
+
+/* RECENT TAX RETURNS */
+
+.dashboard-section {
+    margin-top: 30px;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.section-header h2 {
+    margin: 0;
+    color: #263238;
+    font-size: 20px;
+}
+
+.section-header a {
+    color: #1f4e79;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.section-header a:hover {
+    text-decoration: underline;
+}
+
+.recent-tax-returns {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.recent-tax-return {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px 20px;
+    background: #ffffff;
+    border: 1px solid #e1e6eb;
+    border-radius: 8px;
+}
+
+.recent-tax-return > div {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.recent-tax-return strong {
+    color: #263238;
+    font-size: 15px;
+}
+
+.recent-tax-return span {
+    color: #78909c;
+    font-size: 13px;
+}
+
+/* Creates the background and layout for the password page. */
+.password-page {
+    /* min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background: #f5f7fa; */
+    min-height: calc(100vh - 90px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.password-page .detail-card {
+    width: 100%;
+    max-width: 650px;
+    text-align: center;
+}
+
+/* Creates the Change Password card. */
+.password-card {
+    width: 100%;
+    max-width: 520px;
+    padding: 35px 40px;
+    background: #ffffff;
+    border: 1px solid #e2e7ec;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Styles the password page heading. */
+.password-header {
+    margin-bottom: 30px;
+}
+
+/* Main Change Password heading. */
+.password-header h1 {
+    margin: 0 0 8px;
+    color: #1f2933;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+/* Password page description. */
+.password-header p {
+    margin: 0;
+    color: #68737d;
+    font-size: 14px;
+}
+
+/* Adds spacing between password fields. */
+.password-field {
+    margin-bottom: 22px;
+}
+
+/* Password field labels. */
+.password-field label {
+    display: block;
+    margin-bottom: 8px;
+    color: #263238;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Styles password inputs. */
+.password-field input {
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #ccd5dd;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #263238;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+/* Password input focus effect. */
+.password-field input:focus {
+    outline: none;
+    border-color: #1f4e79;
+    box-shadow: 0 0 0 2px rgba(31, 78, 121, 0.08);
+}
+
+/* Displays password requirements. */
+.password-help {
+    margin-top: 8px;
+    color: #68737d;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* Styles password requirement lists. */
+.password-help ul {
+    margin: 6px 0 0;
+    padding-left: 18px;
+}
+
+/* Displays individual field errors. */
+.field-error {
+    margin-top: 6px;
+    color: #c62828;
+    font-size: 12px;
+}
+
+/* Displays the general form error message. */
+.password-error {
+    margin-bottom: 22px;
+    padding: 12px 15px;
+    background: #fff3cd;
+    border: 1px solid #ffe69c;
+    border-radius: 6px;
+    color: #664d03;
+    font-size: 13px;
+}
+
+/* Places the Cancel and Change Password buttons together. */
+.password-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+    margin-top: 28px;
+}
+
+/* Styles the Cancel link. */
+.cancel-password-button {
+    padding: 10px 18px;
+    color: #1f4e79;
+    background: #ffffff;
+    border: 1px solid #ccd5dd;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Cancel button hover effect. */
+.cancel-password-button:hover {
+    background: #f5f7fa;
+}
+
+/* Styles the Change Password button. */
+.password-submit-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    background: #1f4e79;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Change Password button hover effect. */
+.password-submit-button:hover {
+    background: #163a5c;
+}
+
+/* Improves the password page on smaller screens. */
+@media (max-width: 600px) {
+
+    .password-card {
+        padding: 28px 22px;
+    }
+
+    .password-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .cancel-password-button,
+    .password-submit-button {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Main area containing the page content and toggle button. */
+.dashboard-main {
+    flex: 1;
+    position: relative;
+    min-width: 0;
+}
+
+/* Adds spacing to the Dashboard and Clients pages. */
+.dashboard-page,
+.clients-page {
+    padding-top: 45px;
+}
+
+/* Three-line button used to hide and show the sidebar. */
+.sidebar-toggle {
+    align-self: flex-end;
+
+    width: 38px;
+    height: 38px;
+
+    margin-bottom: 15px;
+
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 6px;
+
+    background: transparent;
+    color: white;
+
+    font-size: 21px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: background 0.2s ease;
+}
+
+/* Subtle hover effect for the toggle button. */
+.sidebar-toggle:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+/* Collapses the sidebar while keeping the menu button visible. */
+.sidebar.collapsed {
+    width: 64px;
+    padding: 20px 10px;
+}
+
+/* Hides the sidebar content when collapsed. */
+.sidebar.collapsed .sidebar-header,
+.sidebar.collapsed nav,
+.sidebar.collapsed .account-section {
+    display: none;
+}
+
+/* Keeps the menu button visible when the sidebar is collapsed. */
+.sidebar.collapsed .sidebar-toggle {
+    margin: 0 auto;
+}
+

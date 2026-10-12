@@ -1,0 +1,101 @@
+{% extends "base_dashboard.html" %}
+
+{% load static %}
+
+{% block title %}
+    {{ client.username }} | Tax Returns | Tax Workflow System
+{% endblock %}
+
+{% block extra_styles %}
+
+<!-- Loads the shared dashboard styling. -->
+<link
+    rel="stylesheet"
+    href="{% static 'accounts/css/dashboard.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Main Client Tax Returns content. -->
+<div class="clients-page">
+    <!-- Page heading. -->
+    <div class="dashboard-header">
+
+        <div>
+
+            <h1>
+                {{ client.username }}
+            </h1>
+
+            <p>
+                Tax Returns submitted by this Client.
+            </p>
+
+        </div>
+
+    </div>
+
+    {% if tax_returns %}
+
+        <section class="dashboard-section">
+
+            <div class="recent-tax-returns">
+
+                {% for tax_return in tax_returns %}
+
+                    <div class="recent-tax-return">
+
+                        <div>
+
+                            <strong>
+                                Financial Year:
+                                {{ tax_return.financial_year }}
+                            </strong>
+
+                            <span>
+                                Status:
+                                {{ tax_return.get_status_display }}
+                            </span>
+
+                            <span>
+                                Last Updated:
+                                {{ tax_return.updated_at|date:"d M Y, g:i A" }}
+                            </span>
+
+                        </div>
+
+                        <!-- Opens the existing Staff Tax Return detail page. -->
+                        <a
+                            href="{% url 'staff_tax_return_detail' tax_return.id %}"
+                            class="view-button"
+                        >
+                            View
+                        </a>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+    {% else %}
+
+        <div class="empty-state">
+
+            <h3>No Tax Returns Found</h3>
+
+            <p>
+                This Client has not submitted any Tax Returns yet.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

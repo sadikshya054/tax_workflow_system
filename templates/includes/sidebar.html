@@ -1,0 +1,104 @@
+{% load static %}
+
+<!-- Reusable sidebar for Client and Staff pages. -->
+<aside class="sidebar" id="sidebar">
+
+    <!-- Button for collapsing and expanding the sidebar. -->
+    <button
+        type="button"
+        class="sidebar-toggle"
+        id="sidebarToggle"
+        aria-label="Toggle sidebar"
+    >
+        ☰
+    </button>
+
+    <div class="sidebar-header">
+
+        <h2>Tax Workflow</h2>
+
+        {% if request.user.role == "CLIENT" %}
+            <p class="user-role">Client Portal</p>
+        {% else %}
+            <p class="user-role">Staff Portal</p>
+        {% endif %}
+
+    </div>
+
+    <!-- Main navigation links. -->
+    <nav>
+
+        {% if request.user.role == "CLIENT" %}
+
+            <!-- Client navigation. -->
+            <a href="{% url 'client_dashboard' %}">
+                Dashboard
+            </a>
+
+            <a href="{% url 'my_documents' %}">
+                My Documents
+            </a>
+
+            <a href="{% url 'my_tasks' %}">
+                My Tasks
+            </a>
+
+            <a href="{% url 'tax_return_details' %}">
+                Tax Return Form
+            </a>
+
+            <a href="{% url 'my_tax_returns' %}">
+                Tax Return History
+            </a>
+
+        {% elif request.user.role == "STAFF" %}
+
+            <!-- Staff navigation. -->
+            <a href="{% url 'staff_dashboard' %}">
+                Dashboard
+            </a>
+
+            <a href="{% url 'staff_clients' %}">
+                Clients
+            </a>
+
+            <a href="{% url 'staff_tax_returns' %}">
+                Tax Returns
+            </a>
+
+            <a href="{% url 'staff_documents' %}">
+                Documents
+            </a>
+
+            <a href="{% url 'document_requirements' %}">
+                Document Requirements
+            </a>
+
+            <a href="{% url 'staff_tasks' %}">
+                Task Management
+            </a>
+
+        {% endif %}
+
+    </nav>
+
+    <!-- Account actions. -->
+    <div class="account-section">
+
+        <a
+            href="{% url 'change_password' %}"
+            class="change-password-link"
+        >
+            Change Password
+        </a>
+
+        <a
+            href="{% url 'logout' %}"
+            class="logout-button"
+        >
+            Logout
+        </a>
+
+    </div>
+
+</aside>

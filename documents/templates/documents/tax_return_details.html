@@ -1,0 +1,410 @@
+{% extends "base_dashboard.html" %}
+
+{% load static %}
+
+{% block title %}Tax Return Details | Tax Workflow System{% endblock %}
+
+{% block extra_styles %}
+
+<!-- Loads styling specifically used by the Tax Return page. -->
+<link
+    rel="stylesheet"
+    href="{% static 'documents/css/documents.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Displays a confirmation popup for successful actions. -->
+{% if messages %}
+
+    {% for message in messages %}
+
+        {% if message.tags == 'success' %}
+
+            <div class="submission-overlay" id="submissionModal">
+
+                <div class="submission-modal">
+
+                    <div class="submission-icon">
+                        ✓
+                    </div>
+
+                    <!-- Shows the appropriate heading based on the action. -->
+                    {% if 'draft' in message|lower %}
+                        <h2>Tax Return Saved</h2>
+                    {% else %}
+                        <h2>Tax Return Submitted</h2>
+                    {% endif %}
+
+                    <p>{{ message }}</p>
+
+                    <button
+                        type="button"
+                        class="modal-close-button"
+                        onclick="closeSubmissionModal()"
+                    >
+                        Close
+                    </button>
+
+                </div>
+
+            </div>
+
+        {% else %}
+
+            <p class="form-message">{{ message }}</p>
+
+        {% endif %}
+
+    {% endfor %}
+
+{% endif %}
+
+
+<!-- Main container for the Tax Return page. -->
+<div class="documents-container">
+
+    <!-- Provides a link back to the Client dashboard. -->
+    {% comment %} <a
+        href="{% url 'client_dashboard' %}"
+        class="back-link"
+    >
+        ← Back to Dashboard
+    </a> {% endcomment %}
+
+    <!-- Page heading and introduction. -->
+    <div class="page-header">
+
+        <h1>Tax Return Details</h1>
+
+        <p>
+            Complete your tax return information for Staff to review.
+        </p>
+
+    </div>
+
+
+    <!-- Main Tax Return form. -->
+    <div class="tax-return-card">
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <!-- Protects the form against CSRF attacks. -->
+            {% csrf_token %}
+
+
+            <!-- Personal information section. -->
+            <div class="tax-section">
+
+                <div class="tax-section-heading">
+
+                    <h2>Personal Information</h2>
+
+                    <p>
+                        Provide your tax identification and contact details.
+                    </p>
+
+                </div>
+
+                <div class="tax-form-grid">
+
+                    <div class="tax-field">
+
+                        <label for="{{ form.tfn.id_for_label }}">
+                            {{ form.tfn.label }}
+                        </label>
+
+                        {{ form.tfn }}
+
+                        {% for error in form.tfn.errors %}
+                            <p class="form-error">{{ error }}</p>
+                        {% endfor %}
+
+                    </div>
+
+
+                    <div class="tax-field">
+
+                        <label for="{{ form.abn.id_for_label }}">
+                            {{ form.abn.label }}
+                        </label>
+
+                        {{ form.abn }}
+
+                        {% for error in form.abn.errors %}
+                            <p class="form-error">{{ error }}</p>
+                        {% endfor %}
+
+                    </div>
+
+
+                    <div class="tax-field tax-field-full">
+
+                        <label for="{{ form.address.id_for_label }}">
+                            {{ form.address.label }}
+                        </label>
+
+                        {{ form.address }}
+
+                        {% for error in form.address.errors %}
+                            <p class="form-error">{{ error }}</p>
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Tax information section. -->
+            <div class="tax-section">
+
+                <div class="tax-section-heading">
+
+                    <h2>Tax Information</h2>
+
+                    <p>
+                        Enter the financial information for this tax return.
+                    </p>
+
+                </div>
+
+                <div class="tax-form-grid">
+
+                    <div class="tax-field">
+
+                        <label for="{{ form.financial_year.id_for_label }}">
+                            {{ form.financial_year.label }}
+                        </label>
+
+                        {{ form.financial_year }}
+
+                        {% for error in form.financial_year.errors %}
+                            <p class="form-error">{{ error }}</p>
+                        {% endfor %}
+
+                    </div>
+
+
+                    <div class="tax-field">
+
+                        <label for="{{ form.total_income.id_for_label }}">
+                            {{ form.total_income.label }}
+                        </label>
+
+                        {{ form.total_income }}
+
+                        {% for error in form.total_income.errors %}
+                            <p class="form-error">{{ error }}</p>
+                        {% endfor %}
+
+                    </div>
+
+
+                    <div class="tax-field">
+
+                        <label for="{{ form.tax_withheld.id_for_label }}">
+                            {{ form.tax_withheld.label }}
+                        </label>
+
+                        {{ form.tax_withheld }}
+
+                        {% for error in form.tax_withheld.errors %}
+                            <p class="form-error">{{ error }}</p>
+                        {% endfor %}
+
+                    </div>
+
+
+                    <div class="tax-field">
+
+                        <label for="{{ form.deductions.id_for_label }}">
+                            {{ form.deductions.label }}
+                        </label>
+
+                        {{ form.deductions }}
+
+                        {% for error in form.deductions.errors %}
+                            <p class="form-error">{{ error }}</p>
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Additional information section. -->
+            <div class="tax-section">
+
+                <div class="tax-section-heading">
+
+                    <h2>Additional Information</h2>
+
+                    <p>
+                        Add any information you would like Staff to know.
+                    </p>
+
+                </div>
+
+                <div class="tax-field">
+
+                    <label for="{{ form.client_notes.id_for_label }}">
+                        {{ form.client_notes.label }}
+                    </label>
+
+                    {{ form.client_notes }}
+
+                    {% for error in form.client_notes.errors %}
+                        <p class="form-error">{{ error }}</p>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+
+            <!-- Supporting documents section. -->
+            <div class="tax-section">
+
+                <div class="tax-section-heading">
+
+                    <h2>Supporting Documents</h2>
+
+                    <p>
+                        Upload documents that support the information
+                        provided in this tax return.
+                    </p>
+
+                </div>
+
+
+                <!-- Allows the Client to select a supporting document. -->
+                <div class="supporting-document-upload">
+
+                    <label for="supporting_document">
+                        Upload Supporting Document
+                    </label>
+
+                    <input
+                        type="file"
+                        id="supporting_document"
+                        name="supporting_document"
+                    >
+
+                    <button
+                        type="submit"
+                        name="upload_document"
+                        class="submit-button"
+                        formnovalidate
+                    >
+                        Upload Document
+                    </button>
+                    <!-- Displays upload validation errors beside the upload field. -->
+                    {% if upload_error %}
+                        <p class="form-error" style="color: #c62828; font-size: 12px;">{{ upload_error }}</p>
+                    {% endif %}
+                </div>
+
+
+                <!-- Displays documents already linked to this Tax Return. -->
+                {% if supporting_documents %}
+
+                    <div class="supporting-documents-list">
+
+                        {% for document in supporting_documents %}
+
+                            <div class="supporting-document-item">
+
+                                <div>
+
+                                    <strong>
+                                        {{ document.file.name }}
+                                    </strong>
+
+                                    <span>
+                                        {{ document.get_status_display }}
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% else %}
+
+                    <p class="empty-message">
+                        No supporting documents have been uploaded yet.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- Form action buttons. -->
+            <div class="tax-form-actions">
+
+                <!-- Returns the Client to the dashboard. -->
+                <a
+                    href="{% url 'client_dashboard' %}"
+                    class="cancel-button"
+                >
+                    Cancel
+                </a>
+
+
+                <!-- Saves the Tax Return as a draft. -->
+                <button
+                    type="submit"
+                    name="save_draft"
+                    class="cancel-button"
+                >
+                    Save as Draft
+                </button>
+
+
+                <!-- Submits the Tax Return for Staff review. -->
+                <button
+                    type="submit"
+                    name="submit_tax_return"
+                    class="submit-button"
+                >
+                    Submit Tax Return
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+{% endblock %}
+
+
+{% block extra_scripts %}
+
+<script>
+    // Closes the submission confirmation popup.
+    function closeSubmissionModal() {
+
+        const modal = document.getElementById('submissionModal');
+
+        if (modal) {
+            modal.style.display = 'none';
+        }
+
+    }
+</script>
+
+{% endblock %}

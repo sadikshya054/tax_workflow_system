@@ -1,0 +1,142 @@
+{% extends "base_dashboard.html" %}
+
+{% load static %}
+
+{% block title %}Tax Return Status | Tax Workflow System{% endblock %}
+
+{% block extra_styles %}
+
+<!-- Styling specifically for the Tax Return pages. -->
+<link
+    rel="stylesheet"
+    href="{% static 'documents/css/documents.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Main container for the Client Tax Return status page. -->
+<div class="documents-container">
+
+    <!-- Returns the Client to their Tax Return history. -->
+    <a
+        href="{% url 'my_tax_returns' %}"
+        class="back-link"
+    >
+        ← Back to My Tax Returns
+    </a>
+
+    <!-- Page heading. -->
+    <div class="page-header">
+
+        <h1>Tax Return Status</h1>
+
+        <p>
+            Your Tax Return has been submitted and is currently being reviewed by Staff.
+        </p>
+
+    </div>
+
+    <!-- Tax Return summary. -->
+    <div class="detail-card">
+
+        <h3>Tax Return Summary</h3>
+
+        <div class="detail-row">
+
+            <strong>Financial Year:</strong>
+
+            <span>
+                {{ tax_return.financial_year }}
+            </span>
+
+        </div>
+
+        <div class="detail-row">
+
+            <strong>Status:</strong>
+
+            <span>
+                {{ tax_return.get_status_display }}
+            </span>
+
+        </div>
+
+        <div class="detail-row">
+
+            <strong>Last Updated:</strong>
+
+            <span>
+                {{ tax_return.updated_at|date:"d M Y, g:i A" }}
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- Supporting documents. -->
+    <div class="detail-card">
+
+        <h3>Supporting Documents</h3>
+
+        {% if supporting_documents %}
+
+            {% for document in supporting_documents %}
+
+                <div class="detail-row">
+
+                    <strong>Document:</strong>
+
+                    <span>
+                        {{ document.file.name }}
+                    </span>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p class="empty-message">
+                No supporting documents were uploaded.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+    <!-- Shows the next step based on the Tax Return status. -->
+    <div class="detail-card">
+
+        <h3>What's Next?</h3>
+
+        {% if tax_return.status == 'SUBMITTED' %}
+
+            <p>
+                Staff will review your Tax Return details and supporting documents.
+                You will receive a notification when your Tax Return has been completed.
+            </p>
+
+        {% elif tax_return.status == 'COMPLETED' %}
+
+            <p>
+                Your Tax Return has been completed.
+                Please review the estimated outcome and Staff notes above.
+            </p>
+
+        {% elif tax_return.status == 'DISCARDED' %}
+
+            <p>
+                Staff have discarded this Tax Return.
+                Staff may assign you a task to complete a new Tax Return form.
+                Please check your tasks and notifications for further instructions.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

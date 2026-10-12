@@ -1,0 +1,134 @@
+{% extends "base_dashboard.html" %}
+
+{% load static %}
+
+{% block title %}Tax Return Outcome | Tax Workflow System{% endblock %}
+
+{% block extra_styles %}
+
+<!-- Styling specifically for the Tax Return pages. -->
+<link
+    rel="stylesheet"
+    href="{% static 'documents/css/documents.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Main container for the Client Tax Return outcome page. -->
+<div class="documents-container">
+
+    <!-- Returns the Client to the dashboard. -->
+    {% comment %} <a
+        href="{% url 'client_dashboard' %}"
+        class="back-link"
+    >
+        ← Back to Dashboard
+    </a> {% endcomment %}
+
+    <!-- Page heading. -->
+    <div class="page-header">
+
+        <h1>Tax Return Outcome</h1>
+
+        <p>
+            Your Tax Return has been reviewed by Staff.
+        </p>
+
+    </div>
+
+    <!-- Tax Return summary. -->
+    <div class="detail-card">
+
+        <h3>Tax Return Summary</h3>
+
+        <div class="detail-row">
+
+            <strong>Financial Year:</strong>
+
+            <span>
+                {{ tax_return.financial_year }}
+            </span>
+
+        </div>
+
+        <div class="detail-row">
+
+            <strong>Status:</strong>
+
+            <span>
+                {{ tax_return.get_status_display }}
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- Estimated tax outcome. -->
+    <div class="detail-card">
+
+        <h3>Estimated Tax Outcome</h3>
+
+        {% if tax_return.estimated_refund %}
+
+            <div class="detail-row">
+
+                <strong>Estimated Tax Refund:</strong>
+
+                <span>
+                    ${{ tax_return.estimated_refund }}
+                </span>
+
+            </div>
+
+        {% endif %}
+
+        {% if tax_return.estimated_amount_payable %}
+
+            <div class="detail-row">
+
+                <strong>Estimated Amount Payable:</strong>
+
+                <span>
+                    ${{ tax_return.estimated_amount_payable }}
+                </span>
+
+            </div>
+
+        {% endif %}
+
+        {% if not tax_return.estimated_refund and not tax_return.estimated_amount_payable %}
+
+            <p class="empty-message">
+                No estimated outcome has been provided.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+    <!-- Staff review notes. -->
+    <div class="detail-card">
+
+        <h3>Staff Summary</h3>
+
+        {% if tax_return.staff_notes %}
+
+            <p>
+                {{ tax_return.staff_notes|linebreaksbr }}
+            </p>
+
+        {% else %}
+
+            <p class="empty-message">
+                No additional notes were provided by Staff.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <!-- Page title can be changed by each individual page. -->
+    <title>{% block title %}Tax Workflow System{% endblock %}</title>
+
+    {% load static %}
+
+    <!-- Shared dashboard styling. -->
+    <link rel="stylesheet" href="{% static 'accounts/css/dashboard.css' %}">
+    
+    <!-- Allows individual pages to load their own CSS. -->
+    {% block extra_styles %}
+    {% endblock %}
+    
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+
+        <!-- Reusable sidebar. -->
+        {% include "includes/sidebar.html" %}
+
+        <div class="dashboard-main">
+            <!-- Page-specific content goes here. -->
+            <main class="dashboard-content">
+
+                {% block content %}
+                {% endblock %}
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        // Finds the sidebar and toggle button.
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+
+        // Hides or shows the sidebar when the three-line button is clicked.
+        sidebarToggle.addEventListener('click', function () {
+            sidebar.classList.toggle('collapsed');
+        });
+
+    </script>
+
+    {% block extra_scripts %}
+    {% endblock %}
+
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+{% extends "base_dashboard.html" %}
+
+{% load static %}
+
+{% block title %}My Tasks | Tax Workflow System{% endblock %}
+
+{% block extra_styles %}
+
+<!-- Styling specifically for the task page. -->
+<link
+    rel="stylesheet"
+    href="{% static 'documents/css/tasks.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Main container for the Client task page. -->
+<div class="tasks-container">
+
+    <!-- Returns the Client to the dashboard. -->
+    {% comment %} <a
+        href="{% url 'client_dashboard' %}"
+        class="back-link"
+    >
+        ← Back to Dashboard
+    </a> {% endcomment %}
+
+    <!-- Page heading and description. -->
+    <div class="page-header">
+
+        <h1>My Tasks</h1>
+
+        <p>
+            Tasks assigned to {{ request.user.username }}
+        </p>
+
+    </div>
+
+    {% if tasks %}
+
+        {% for task in tasks %}
+
+            <div class="task-card">
+
+                <h3>{{ task.title }}</h3>
+
+                <p class="task-info">
+                    <strong>Description:</strong>
+                    {{ task.description }}
+                </p>
+
+                <div class="task-status">
+                    Status: {{ task.get_status_display }}
+                </div>
+
+                <p class="task-info">
+                    <strong>Due Date:</strong>
+
+                    {% if task.due_date %}
+                        {{ task.due_date }}
+                    {% else %}
+                        No due date
+                    {% endif %}
+                </p>
+
+                <p class="task-info">
+                    <strong>Created:</strong>
+                    {{ task.created_at }}
+                </p>
+
+                {% if task.status == 'PENDING' %}
+
+                    <div class="task-actions">
+
+                        <!-- Allows the Client to complete their pending task. -->
+                        <form
+                            method="POST"
+                            action="{% url 'complete_task' task.id %}"
+                        >
+                            {% csrf_token %}
+
+                            <button
+                                type="submit"
+                                class="complete-button"
+                            >
+                                Mark as Completed
+                            </button>
+
+                        </form>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty-message">
+            You currently have no tasks assigned to you.
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,88 @@
+{% extends "base_dashboard.html" %}
+
+{% load static %}
+
+{% block title %}Clients | Tax Workflow System{% endblock %}
+
+{% block extra_styles %}
+
+<!-- Loads the shared dashboard styling. -->
+<link
+    rel="stylesheet"
+    href="{% static 'accounts/css/dashboard.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Adds extra top spacing for the Clients page. -->
+<div class="clients-page">
+
+    <!-- Main Client list content. -->
+    <div class="dashboard-header">
+
+        <div>
+
+            <h1>Clients</h1>
+
+            <p>
+                View registered Client accounts.
+            </p>
+
+        </div>
+
+    </div>
+
+    {% if clients %}
+
+        <section class="dashboard-section">
+
+            <div class="recent-tax-returns">
+
+                {% for client in clients %}
+
+                    <div class="recent-tax-return">
+
+                        <div>
+                            <!-- Opens this Client's Tax Return history. -->
+                            <strong>
+                                <a
+                                    href="{% url 'staff_client_tax_returns' client.id %}"
+                                    class="client-name-link"
+                                >
+                                    {{ client.username }}
+                                </a>
+                            </strong>
+
+                            <span>
+                                Client account
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+    {% else %}
+
+        <div class="empty-state">
+
+            <h3>No Clients Found</h3>
+
+            <p>
+                There are currently no registered Client accounts.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,252 @@
+{% extends "base_dashboard.html" %}
+
+{% load static %}
+
+{% block title %}Staff Tax Returns | Tax Workflow System{% endblock %}
+
+{% block extra_styles %}
+
+<!-- Styling specifically for the Tax Return pages. -->
+<link
+    rel="stylesheet"
+    href="{% static 'documents/css/documents.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Main container for the Staff Tax Return management page. -->
+<div class="documents-container">
+
+    <!-- Returns Staff to the dashboard. -->
+    {% comment %} <a
+        href="{% url 'staff_dashboard' %}"
+        class="back-link"
+    >
+        ← Back to Dashboard
+    </a> {% endcomment %}
+
+    <!-- Page heading. -->
+    <div class="page-header">
+
+        <h1>Tax Returns</h1>
+
+        <p>
+            Review Tax Return submissions from Clients.
+        </p>
+
+    </div>
+
+    <!-- Displays Tax Returns waiting for Staff review. -->
+    <section>
+
+        <h2>Tax Returns to Review</h2>
+
+        {% if submitted_tax_returns %}
+
+            {% for tax_return in submitted_tax_returns %}
+
+                <div class="staff-document-card">
+
+                    <!-- Tax Return header. -->
+                    <div class="staff-document-header">
+
+                        <div>
+
+                            <h3>
+                                {{ tax_return.client.username }}
+                            </h3>
+
+                            <p class="document-info">
+
+                                <strong>Financial Year:</strong>
+                                {{ tax_return.financial_year }}
+
+                            </p>
+
+                            <p class="document-info">
+
+                                <strong>Submitted:</strong>
+                                {{ tax_return.updated_at|date:"d M Y, g:i A" }}
+
+                            </p>
+
+                        </div>
+
+                        <!-- Shows the current Tax Return status. -->
+                        <span class="staff-status">
+                            {{ tax_return.get_status_display }}
+                        </span>
+
+                    </div>
+
+                    <!-- Opens the Tax Return for review. -->
+                    <div class="staff-document-actions">
+
+                        <a
+                            href="{% url 'staff_tax_return_detail' tax_return.id %}"
+                            class="view-button"
+                        >
+                            Review Tax Return
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p class="empty-message">
+                No Tax Returns are currently waiting for review.
+            </p>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- Displays Tax Returns that Staff have already completed. -->
+    <section>
+
+        <h2>Completed Tax Returns</h2>
+
+        {% if completed_tax_returns %}
+
+            {% for tax_return in completed_tax_returns %}
+
+                <div class="staff-document-card">
+
+                    <!-- Completed Tax Return information. -->
+                    <div class="staff-document-header">
+
+                        <div>
+
+                            <h3>
+                                {{ tax_return.client.username }}
+                            </h3>
+
+                            <p class="document-info">
+
+                                <strong>Financial Year:</strong>
+                                {{ tax_return.financial_year }}
+
+                            </p>
+
+                            <p class="document-info">
+
+                                <strong>Completed:</strong>
+                                {{ tax_return.updated_at|date:"d M Y, g:i A" }}
+
+                            </p>
+
+                        </div>
+
+                        <!-- Shows that the Tax Return has been completed. -->
+                        <span class="staff-status">
+                            {{ tax_return.get_status_display }}
+                        </span>
+
+                    </div>
+
+                    <!-- Opens the completed Tax Return. -->
+                    <div class="staff-document-actions">
+
+                        <a
+                            href="{% url 'staff_tax_return_detail' tax_return.id %}"
+                            class="view-button"
+                        >
+                            View Tax Return
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p class="empty-message">
+                No completed Tax Returns yet.
+            </p>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- Displays Tax Returns that Staff have discarded. -->
+    <section>
+
+        <h2>Discarded Tax Returns</h2>
+
+        {% if discarded_tax_returns %}
+
+            {% for tax_return in discarded_tax_returns %}
+
+                <div class="staff-document-card">
+
+                    <!-- Discarded Tax Return information. -->
+                    <div class="staff-document-header">
+
+                        <div>
+
+                            <h3>
+                                {{ tax_return.client.username }}
+                            </h3>
+
+                            <p class="document-info">
+
+                                <strong>Financial Year:</strong>
+                                {{ tax_return.financial_year }}
+
+                            </p>
+
+                            <p class="document-info">
+
+                                <strong>Discarded:</strong>
+                                {{ tax_return.updated_at|date:"d M Y, g:i A" }}
+
+                            </p>
+
+                        </div>
+
+                        <!-- Shows that the Tax Return has been discarded. -->
+                        <span class="staff-status">
+                            {{ tax_return.get_status_display }}
+                        </span>
+
+                    </div>
+
+                    <!-- Opens the discarded Tax Return. -->
+                    <div class="staff-document-actions">
+
+                        <a
+                            href="{% url 'staff_tax_return_detail' tax_return.id %}"
+                            class="view-button"
+                        >
+                            View Tax Return
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p class="empty-message">
+                No discarded Tax Returns yet.
+            </p>
+
+        {% endif %}
+
+    </section>
+
+</div>
+
+{% endblock %}

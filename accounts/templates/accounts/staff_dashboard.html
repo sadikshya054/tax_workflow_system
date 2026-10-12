@@ -1,0 +1,317 @@
+{% extends "base_dashboard.html" %}
+
+{% load static %}
+
+{% block title %}Staff Dashboard | Tax Workflow System{% endblock %}
+
+{% block extra_styles %}
+
+<!-- Loads the shared dashboard styling. -->
+<link
+    rel="stylesheet"
+    href="{% static 'accounts/css/dashboard.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Adds extra top spacing for the Staff Dashboard. -->
+<div class="dashboard-page">
+
+    <!-- Main Staff dashboard heading. -->
+    <div class="dashboard-header">
+
+        <div>
+
+            <h1>
+                Welcome, {{ request.user.username }}
+            </h1>
+
+            <p>
+                Staff Dashboard
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- Summary cards showing current Staff workflow items. -->
+    <section class="dashboard-cards">
+
+        <!-- Shows Tax Returns waiting for Staff review. -->
+        <div class="dashboard-card">
+
+            <h3>Tax Returns to Review</h3>
+
+            <p>
+                {{ submitted_tax_returns }}
+                Tax Return{{ submitted_tax_returns|pluralize }}
+                waiting for review.
+            </p>
+
+            <a href="{% url 'staff_tax_returns' %}">
+                Review Tax Returns
+            </a>
+
+        </div>
+
+        <!-- Shows documents waiting for Staff review. -->
+        <div class="dashboard-card">
+
+            <h3>Documents to Review</h3>
+
+            <p>
+                {{ submitted_documents }}
+                document{{ submitted_documents|pluralize }}
+                waiting for review.
+            </p>
+
+            <a href="{% url 'staff_documents' %}">
+                Review Documents
+            </a>
+
+        </div>
+
+        <!-- Shows Staff's pending workflow tasks. -->
+        <div class="dashboard-card">
+
+            <h3>Pending Tasks</h3>
+
+            <p>
+                {{ pending_tasks }}
+                task{{ pending_tasks|pluralize }}
+                currently pending.
+            </p>
+
+            <a href="{% url 'staff_tasks' %}">
+                Manage Tasks
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- Shows the most recently completed Tax Returns. -->
+    <section class="dashboard-section">
+
+        <div class="section-header">
+
+            <h2>Recent Tax Returns</h2>
+
+            <a href="{% url 'staff_tax_returns' %}">
+                View All
+            </a>
+
+        </div>
+
+        {% if recent_completed_tax_returns %}
+
+            <div class="recent-tax-returns">
+
+                {% for tax_return in recent_completed_tax_returns %}
+
+                    <div class="recent-tax-return">
+
+                        <div>
+
+                            <strong>
+                                {{ tax_return.client.username }}
+                            </strong>
+
+                            <span>
+                                Financial Year:
+                                {{ tax_return.financial_year }}
+                            </span>
+
+                            <span class="staff-status">
+                                Status: {{ tax_return.get_status_display }}
+                            </span>
+
+                        </div>
+
+                        <!-- Opens the completed Tax Return details. -->
+                        <a
+                            href="{% url 'staff_tax_return_detail' tax_return.id %}"
+                            class="view-button"
+                        >
+                            View
+                        </a>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <p>
+                    No completed Tax Returns yet.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+    <!-- Shows documents that Staff have recently reviewed. -->
+    <section class="dashboard-section">
+
+        <div class="section-header">
+
+            <h2>Recent Documents</h2>
+
+            <a href="{% url 'staff_documents' %}">
+                View All
+            </a>
+
+        </div>
+
+        {% if recent_reviewed_documents %}
+
+            <div class="recent-tax-returns">
+
+                {% for document in recent_reviewed_documents %}
+
+                    <div class="recent-tax-return">
+
+                        <div>
+
+                            <strong>
+                                {{ document.file.name|cut:"documents/" }}
+                            </strong>
+
+                            <span>
+                                Client:
+                                {{ document.owner.username }}
+                            </span>
+
+                            <span>
+                                Status: Reviewed
+                            </span>
+
+                        </div>
+
+                        <!-- Opens the document details. -->
+                        <a
+                            href="{% url 'document_detail' document.id %}"
+                            class="view-button"
+                        >
+                            View
+                        </a>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <p>
+                    No reviewed documents yet.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+    <!-- Shows the five most recently created Client tasks. -->
+    <section class="dashboard-section">
+
+        <div class="section-header">
+
+            <h2>Recent Tasks</h2>
+
+            <!-- Opens the full Task Management page. -->
+            <a href="{% url 'staff_tasks' %}">
+                View All Tasks
+            </a>
+
+        </div>
+
+        {% if recent_tasks %}
+
+            <div class="recent-tax-returns">
+
+                {% for task in recent_tasks %}
+
+                    <div class="recent-tax-return">
+
+                        <div>
+
+                            <strong>
+                                {{ task.title }}
+                            </strong>
+
+                            <span>
+                                Client:
+                                {{ task.assigned_to.username }}
+                            </span>
+
+                            <span>
+
+                                {% if task.status == 'COMPLETED' %}
+
+                                    Status: Completed
+
+                                {% else %}
+
+                                    Status: Pending
+
+                                {% endif %}
+
+                            </span>
+
+                        </div>
+
+                        {% if task.status == 'COMPLETED' %}
+
+                            <!-- Shows that the Client has completed the task. -->
+                            <span class="view-button">
+                                Completed
+                            </span>
+
+                        {% else %}
+
+                            <!-- Opens Task Management so Staff can manage the pending task. -->
+                            <a
+                                href="{% url 'staff_tasks' %}"
+                                class="view-button"
+                            >
+                                Manage
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty-state">
+
+                <p>
+                    No tasks yet.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </section>
+
+</div>
+
+{% endblock %}

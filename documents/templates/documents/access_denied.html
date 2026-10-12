@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Displays the access denied page title. -->
+    <title>Access Denied | Tax Workflow System</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'documents/css/documents.css' %}">
+</head>
+
+<body>
+
+    <div class="access-denied-container">
+
+        <div class="access-denied-card">
+
+            <!-- Security message. -->
+            <div class="access-denied-icon">
+                !
+            </div>
+
+            <h1>Access Denied</h1>
+
+            <p>
+                You do not have permission to access this page.
+            </p>
+
+            <!-- Returns the user to the login page. -->
+            <a
+                href="{% url 'login' %}"
+                class="access-denied-button"
+            >
+                Return to Login
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

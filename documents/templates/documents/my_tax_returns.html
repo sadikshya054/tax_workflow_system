@@ -1,0 +1,157 @@
+{% extends "base_dashboard.html" %}
+
+{% load static %}
+
+{% block title %}My Tax Returns | Tax Workflow System{% endblock %}
+
+{% block extra_styles %}
+
+<!-- Loads styling specifically used by the Tax Return pages. -->
+<link
+    rel="stylesheet"
+    href="{% static 'documents/css/documents.css' %}"
+>
+
+{% endblock %}
+
+{% block content %}
+
+<!-- Main container for the Client Tax Return history page. -->
+<div class="documents-container">
+
+    <!-- Returns the Client to the dashboard. -->
+    {% comment %} <a
+        href="{% url 'client_dashboard' %}"
+        class="back-link"
+    >
+        ← Back to Dashboard
+    </a> {% endcomment %}
+
+
+    <!-- Page heading and description. -->
+    <div class="page-header">
+
+        <h1>My Tax Returns</h1>
+
+        <p>
+            View your previous and current Tax Return submissions.
+        </p>
+
+    </div>
+
+
+    {% if tax_returns %}
+
+        <div class="tax-return-list">
+
+            {% for tax_return in tax_returns %}
+
+                <div class="staff-tax-return-card">
+
+                    <div class="staff-tax-return-info">
+
+                        <div class="staff-tax-return-client">
+
+                            <h3>
+                                {{ tax_return.financial_year }}
+                            </h3>
+
+                            <span class="staff-tax-return-status">
+                                {{ tax_return.get_status_display }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="staff-tax-return-details">
+
+                            <div class="staff-tax-return-detail">
+
+                                <span class="detail-label">
+                                    Last Updated
+                                </span>
+
+                                <span class="detail-value">
+                                    {{ tax_return.updated_at|date:"d M Y" }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="staff-tax-return-detail">
+
+                                <span class="detail-label">
+                                    Status
+                                </span>
+
+                                <span class="detail-value">
+                                    {{ tax_return.get_status_display }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="staff-tax-return-action">
+
+                        {% if tax_return.status == 'COMPLETED' %}
+
+                            <!-- Allows the Client to view the completed outcome. -->
+                            <a
+                                href="{% url 'tax_return_outcome' tax_return.id %}"
+                                class="view-button"
+                            >
+                                View Outcome
+                            </a>
+
+                        {% elif tax_return.status == 'DRAFT' %}
+
+                            <!-- Allows the Client to continue a saved draft. -->
+                            <a
+                                href="{% url 'tax_return_details' %}"
+                                class="view-button"
+                            >
+                                Continue
+                            </a>
+
+                        {% else %}
+
+                            <!-- Allows the Client to check the Tax Return status. -->
+                            <a
+                                href="{% url 'tax_return_status' tax_return.id %}"
+                                class="view-button"
+                            >
+                                View Status
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <!-- Message shown when the Client has no Tax Returns. -->
+        <div class="empty-state">
+
+            <h3>No Tax Returns Yet</h3>
+
+            <p>
+                You have not submitted a Tax Return yet.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

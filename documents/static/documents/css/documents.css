@@ -1,0 +1,1414 @@
+/* Applies consistent sizing to page elements. */
+* {
+    box-sizing: border-box;
+}
+
+/* Main document page styling. */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f7fa;
+    color: #263238;
+}
+
+/* Main page container. */
+.documents-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 45px 30px;
+}
+
+/* Page heading. */
+.page-header {
+    margin-bottom: 25px;
+}
+
+/* Main page title. */
+.page-header h1 {
+    margin: 0 0 8px;
+    color: #1f2933;
+    font-size: 30px;
+}
+
+/* Page description. */
+.page-header p {
+    margin: 0;
+    color: #68737d;
+}
+
+/* Main action button. */
+.primary-button {
+    display: inline-block;
+    background: #1f4e79;
+    color: white;
+    text-decoration: none;
+    padding: 11px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+/* Primary button hover effect. */
+.primary-button:hover {
+    background: #163a5c;
+}
+
+/* Individual document card. */
+.document-card {
+    background: white;
+    border: 1px solid #e2e7ec;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Document file name. */
+.document-card h3 {
+    margin-top: 0;
+    margin-bottom: 18px;
+    color: #1f4e79;
+    font-size: 19px;
+}
+
+/* Document information. */
+.document-info {
+    margin-bottom: 10px;
+    color: #4f5b66;
+}
+
+/* Feedback section. */
+.feedback-section {
+    margin-top: 20px;
+    padding: 16px;
+    background: #f5f7fa;
+    border-left: 4px solid #1f4e79;
+    border-radius: 4px;
+}
+
+/* Feedback heading. */
+.feedback-section strong {
+    color: #263238;
+}
+
+/* Individual feedback message. */
+.feedback-message {
+    margin: 8px 0;
+    color: #4f5b66;
+    line-height: 1.5;
+}
+
+/* Document action area. */
+.document-actions {
+    margin-top: 20px;
+}
+
+/* Individual action links. */
+.document-actions a {
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    padding: 9px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+
+/* Styles buttons used to upload or submit documents. */
+.submit-button {
+    display: inline-block;
+    padding: 9px 16px;
+    border: 1px solid #1f4e79;
+    border-radius: 5px;
+    background: #1f4e79;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+
+/* Gives the document button a subtle hover effect. */
+.submit-button:hover {
+    background: #163a5c;
+    border-color: #163a5c;
+}
+
+/* Empty document message. */
+.empty-message {
+    background: white;
+    border: 1px solid #e2e7ec;
+    border-radius: 10px;
+    padding: 25px;
+    color: #68737d;
+}
+
+/* Positions the Back link near the top-left. */
+.back-link {
+    display: inline-block;
+    margin-top: -10px;
+    margin-left: -20px;
+    margin-bottom: 24px;
+    color: #1f4e79;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Back link hover effect. */
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* Staff document card. */
+.staff-document-card {
+    background: white;
+    border: 1px solid #e2e7ec;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Staff document heading area. */
+.staff-document-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+/* Staff document file name. */
+.staff-document-header h3 {
+    margin: 0 0 15px;
+    color: #1f4e79;
+    font-size: 19px;
+}
+
+/* Staff document status. */
+.staff-status {
+    padding: 7px 12px;
+    background: #e8eef4;
+    color: #1f4e79;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Staff document action area. */
+.staff-document-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+/* Removes the default form spacing. */
+.staff-document-actions form {
+    margin: 0;
+}
+
+/* Mark as reviewed button. */
+.review-button {
+    border: none;
+    background: #1f4e79;
+    color: white;
+    padding: 9px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Review button hover effect. */
+.review-button:hover {
+    background: #163a5c;
+}
+
+/* Staff feedback area. */
+.staff-feedback-section {
+    margin-top: 25px;
+    padding: 20px;
+    background: #f5f7fa;
+    border-left: 4px solid #1f4e79;
+    border-radius: 5px;
+}
+
+/* Feedback section heading. */
+.staff-feedback-section h4 {
+    margin: 0 0 15px;
+    color: #263238;
+    font-size: 16px;
+}
+
+/* Feedback label. */
+.staff-feedback-section label {
+    display: block;
+    margin-bottom: 8px;
+    color: #4f5b66;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Feedback text area. */
+.staff-feedback-section textarea {
+    display: block;
+    width: 100%;
+    max-width: 700px;
+    min-height: 100px;
+    padding: 11px 12px;
+    border: 1px solid #ccd5dd;
+    border-radius: 6px;
+    background: white;
+    color: #263238;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    resize: vertical;
+}
+
+/* Feedback text area focus effect. */
+.staff-feedback-section textarea:focus {
+    outline: none;
+    border-color: #1f4e79;
+}
+
+/* Add feedback button. */
+.feedback-button {
+    margin-top: 12px;
+    border: none;
+    background: #e8eef4;
+    color: #1f4e79;
+    padding: 9px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Feedback button hover effect. */
+.feedback-button:hover {
+    background: #d9e3ec;
+}
+
+
+/* DOCUMENT DETAILS */
+
+/* Main container for the document details page. */
+.document-detail-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 45px 30px;
+}
+
+/* Document information card. */
+.detail-card {
+    background: white;
+    border: 1px solid #e2e7ec;
+    border-radius: 10px;
+    padding: 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Document information heading. */
+.detail-card h3 {
+    margin-top: 0;
+    margin-bottom: 22px;
+    color: #1f4e79;
+    font-size: 19px;
+}
+
+/* Individual document information row. */
+.detail-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+    color: #4f5b66;
+    line-height: 1.5;
+}
+
+/* Document information labels. */
+.detail-row strong {
+    min-width: 85px;
+    color: #263238;
+}
+
+/* Document status badge. */
+.detail-status {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-top: -3px;
+    background: #e8eef4;
+    color: #1f4e79;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* View document button. */
+.view-document-button {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 16px;
+    background: #1f4e79;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* View document button hover effect. */
+.view-document-button:hover {
+    background: #163a5c;
+}
+
+/* Staff feedback card. */
+.feedback-detail-card {
+    background: white;
+    border: 1px solid #e2e7ec;
+    border-radius: 10px;
+    padding: 28px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Feedback section heading. */
+.feedback-detail-card h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #1f4e79;
+    font-size: 20px;
+}
+
+/* Individual feedback item. */
+.feedback-item {
+    padding: 18px;
+    margin-bottom: 15px;
+    background: #f5f7fa;
+    border-left: 4px solid #1f4e79;
+    border-radius: 5px;
+}
+
+/* Removes unnecessary spacing from feedback label. */
+.feedback-item p:first-child {
+    margin-top: 0;
+}
+
+/* Feedback message. */
+.feedback-text {
+    color: #4f5b66;
+    line-height: 1.6;
+}
+
+/* Feedback metadata. */
+.feedback-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-top: 15px;
+    color: #68737d;
+    font-size: 13px;
+}
+
+/* Message shown when no feedback exists. */
+.no-feedback {
+    margin: 0;
+    color: #68737d;
+}
+
+
+/* UPLOAD PAGE */
+
+/* Main container for the upload page. */
+.upload-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 45px 30px;
+}
+
+/* Upload form card. */
+.upload-card {
+    background: white;
+    border: 1px solid #e2e7ec;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Space between upload form fields. */
+.upload-card p {
+    margin-bottom: 20px;
+}
+
+/* Upload form labels. */
+.upload-card label {
+    display: block;
+    margin-bottom: 8px;
+    color: #263238;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* File upload field. */
+.upload-card input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccd5dd;
+    border-radius: 6px;
+    background: white;
+    color: #4f5b66;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+/* File input focus effect. */
+.upload-card input[type="file"]:focus {
+    outline: none;
+    border-color: #1f4e79;
+}
+
+
+/* Upload button. */
+.upload-button {
+    border: none;
+    background: #1f4e79;
+    color: white;
+    padding: 11px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Upload button hover effect. */
+.upload-button:hover {
+    background: #163a5c;
+}
+
+
+/* ACCESS DENIED */
+
+/* Main access denied page container. */
+.access-denied-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+/* Access denied message card. */
+.access-denied-card {
+    width: 100%;
+    max-width: 500px;
+    background: white;
+    border: 1px solid #e2e7ec;
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Access denied icon. */
+.access-denied-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: #e8eef4;
+    color: #1f4e79;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Access denied heading. */
+.access-denied-card h1 {
+    margin: 0 0 12px;
+    color: #1f2933;
+    font-size: 28px;
+}
+
+/* Access denied description. */
+.access-denied-card p {
+    margin: 0 0 25px;
+    color: #68737d;
+    line-height: 1.6;
+}
+
+/* Return to login button. */
+.access-denied-button {
+    display: inline-block;
+    background: #1f4e79;
+    color: white;
+    text-decoration: none;
+    padding: 11px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+/* Return button hover effect. */
+.access-denied-button:hover {
+    background: #163a5c;
+}
+
+
+/* MY DOCUMENTS */
+
+/* Separates the different stages of the Client document workflow. */
+.document-section {
+    margin-top: 35px;
+}
+
+/* Displays the section title and document count together. */
+.section-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+/* Document section title. */
+.section-heading h2 {
+    margin: 0;
+    color: #1f2933;
+    font-size: 21px;
+    font-weight: 600;
+}
+
+/* Shows a small count beside each section title. */
+.section-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 24px;
+    padding: 0 7px;
+    border-radius: 12px;
+    background: #eef2f5;
+    color: #52616b;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+
+/* DOCUMENT REQUIREMENTS */
+
+/* Styles the Staff delete button for document requirements. */
+.delete-button {
+    padding: 8px 14px;
+    border: 1px solid #c62828;
+    border-radius: 5px;
+    background: white;
+    color: #c62828;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+/* Changes the delete button when Staff hovers over it. */
+.delete-button:hover {
+    background: #c62828;
+    color: white;
+}
+
+
+/* Main Tax Return form card. */
+.tax-return-card {
+    max-width: 820px;
+    margin: 30px auto;
+    background: white;
+    border: 1px solid #e2e7ec;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+/* Separates each Tax Return section. */
+.tax-section {
+    padding: 30px 40px;
+    border-bottom: 1px solid #e2e7ec;
+}
+
+/* Tax Return section heading. */
+.tax-section-heading {
+    margin-bottom: 24px;
+}
+
+/* Tax Return section title. */
+.tax-section-heading h2 {
+    margin: 0 0 6px;
+    color: #1f4e79;
+    font-size: 19px;
+}
+
+/* Tax Return section description. */
+.tax-section-heading p {
+    margin: 0;
+    color: #68737d;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Creates aligned columns for related Tax Return fields. */
+.tax-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 28px;
+}
+
+/* Individual Tax Return field. */
+.tax-field {
+    min-width: 0;
+}
+
+/* Allows selected fields to use the full width. */
+.tax-field-full {
+    grid-column: 1 / -1;
+}
+
+/* Tax Return form labels. */
+.tax-field label {
+    display: block;
+    margin-bottom: 8px;
+    color: #263238;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Tax Return input and textarea fields. */
+.tax-field input,
+.tax-field textarea {
+    display: block;
+    width: 100%;
+    padding: 11px 12px;
+    border: 1px solid #ccd5dd;
+    border-radius: 6px;
+    background: white;
+    color: #263238;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+/* Tax Return input focus effect. */
+.tax-field input:focus,
+.tax-field textarea:focus {
+    outline: none;
+    border-color: #1f4e79;
+}
+
+/* Provides enough space for longer written information. */
+.tax-field textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Tax Return validation errors. */
+.tax-field .form-error {
+    margin: 6px 0 0;
+    color: #c62828;
+    font-size: 12px;
+}
+
+/* Creates a clean area for uploading supporting documents. */
+.supporting-document-upload {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px 16px;
+    align-items: end;
+    padding: 18px;
+    margin-bottom: 22px;
+    background: #f8fafc;
+    border: 1px solid #e2e7ec;
+    border-radius: 8px;
+}
+
+/* Supporting document upload label. */
+.supporting-document-upload label {
+    grid-column: 1 / -1;
+    display: block;
+    margin: 0;
+    color: #263238;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Supporting document file input. */
+.supporting-document-upload input[type="file"] {
+    width: 100%;
+    min-width: 0;
+    padding: 9px;
+    border: 1px solid #ccd5dd;
+    border-radius: 6px;
+    background: white;
+    color: #455a64;
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+}
+
+/* Supporting document file input focus effect. */
+.supporting-document-upload input[type="file"]:focus {
+    outline: none;
+    border-color: #1f4e79;
+}
+
+/* Keeps the upload button aligned with the file input. */
+.supporting-document-upload .submit-button {
+    margin: 0;
+    white-space: nowrap;
+}
+
+/* Displays uploaded documents in a vertical list. */
+.supporting-documents-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Individual uploaded document row. */
+.supporting-document-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    padding: 14px 16px;
+    background: #f8fafc;
+    border: 1px solid #e2e7ec;
+    border-radius: 7px;
+}
+
+/* Keeps the document name area flexible. */
+.supporting-document-item > div {
+    min-width: 0;
+    flex: 1;
+}
+
+/* Uploaded document name. */
+.supporting-document-item strong {
+    display: block;
+    color: #263238;
+    font-size: 14px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+/* Uploaded document status. */
+.supporting-document-item span {
+    display: inline-block;
+    flex-shrink: 0;
+    margin-top: 4px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: #e8eef4;
+    color: #1f4e79;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Tax Return form action area. */
+.tax-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    padding: 22px 40px;
+    background: #f8fafc;
+}
+
+/* Cancel and secondary action buttons. */
+.cancel-button {
+    display: inline-block;
+    padding: 9px 16px;
+    border: 1px solid #ccd5dd;
+    border-radius: 6px;
+    background: white;
+    color: #455a64;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Cancel button hover effect. */
+.cancel-button:hover {
+    background: #f1f3f5;
+}
+
+/* Improves the page on smaller screens. */
+@media (max-width: 700px) {
+
+    .documents-container {
+        padding: 30px 20px;
+    }
+
+    .document-actions a {
+        display: block;
+        width: fit-content;
+    }
+
+    .staff-document-header {
+        flex-direction: column;
+    }
+
+    .staff-document-actions {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .staff-document-actions a,
+    .staff-document-actions button {
+        width: fit-content;
+    }
+
+    .document-detail-container {
+        padding: 30px 20px;
+    }
+
+    .detail-row {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .detail-row strong {
+        min-width: auto;
+    }
+
+    .feedback-meta {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .upload-container {
+        padding: 30px 20px;
+    }
+
+    .upload-card {
+        padding: 22px;
+    }
+
+    .access-denied-container {
+        padding: 20px;
+    }
+
+    .access-denied-card {
+        padding: 30px 22px;
+    }
+
+    /* Changes the Tax Return form to a single column on smaller screens. */
+    .tax-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tax-field-full {
+        grid-column: auto;
+    }
+
+    .tax-return-card {
+        margin: 20px 0;
+    }
+
+    .tax-section {
+        padding: 25px 22px;
+    }
+
+    /* Stacks the supporting document upload controls. */
+    .supporting-document-upload {
+        grid-template-columns: 1fr;
+    }
+
+    .supporting-document-upload label {
+        grid-column: auto;
+    }
+
+    .supporting-document-upload .submit-button {
+        width: 100%;
+    }
+
+    /* Stacks document name and status on smaller screens. */
+    .supporting-document-item {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .supporting-document-item span {
+        margin-top: 0;
+    }
+
+    .tax-form-actions {
+        padding: 20px 22px;
+        flex-wrap: wrap;
+    }
+}
+
+
+/* Displays Tax Return cards in a vertical list. */
+.tax-return-list {
+display: flex;
+flex-direction: column;
+gap: 16px;
+margin-top: 24px;
+}
+
+/* Creates a clean card for each Tax Return. */
+.staff-tax-return-card {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 24px;
+padding: 22px 24px;
+background: #ffffff;
+border: 1px solid #e1e6eb;
+border-radius: 10px;
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* Keeps the Client information flexible. */
+.staff-tax-return-info {
+flex: 1;
+min-width: 0;
+}
+
+/* Displays the Client name and status together. */
+.staff-tax-return-client {
+display: flex;
+align-items: center;
+gap: 12px;
+margin-bottom: 16px;
+}
+
+/* Client name. */
+.staff-tax-return-client h3 {
+margin: 0;
+color: #263238;
+font-size: 17px;
+font-weight: 600;
+}
+
+/* Tax Return status badge. */
+.staff-tax-return-status {
+display: inline-block;
+padding: 5px 10px;
+border-radius: 5px;
+background: #e8eef4;
+color: #1f4e79;
+font-size: 12px;
+font-weight: 600;
+}
+
+/* Displays Tax Return details horizontally. */
+.staff-tax-return-details {
+display: flex;
+gap: 40px;
+}
+
+/* Individual Tax Return detail. */
+.staff-tax-return-detail {
+display: flex;
+flex-direction: column;
+gap: 5px;
+}
+
+/* Detail label. */
+.detail-label {
+color: #78909c;
+font-size: 12px;
+font-weight: 600;
+text-transform: uppercase;
+letter-spacing: 0.4px;
+}
+
+/* Detail value. */
+.detail-value {
+color: #37474f;
+font-size: 14px;
+}
+
+/* Keeps the Review button aligned to the right. */
+.staff-tax-return-action {
+flex-shrink: 0;
+}
+
+/* Empty Tax Return state. */
+.empty-state {
+margin-top: 24px;
+padding: 40px 24px;
+text-align: center;
+background: #ffffff;
+border: 1px solid #e1e6eb;
+border-radius: 10px;
+}
+
+/* Empty state heading. */
+.empty-state h3 {
+margin: 0 0 8px;
+color: #37474f;
+font-size: 18px;
+}
+
+/* Empty state message. */
+.empty-state p {
+margin: 0;
+color: #78909c;
+font-size: 14px;
+}
+
+@media (max-width: 700px) {
+
+/* Stacks the Tax Return card on smaller screens. */
+.staff-tax-return-card {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* Stacks the Tax Return details on smaller screens. */
+.staff-tax-return-details {
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Makes the Review button full width on smaller screens. */
+.staff-tax-return-action .view-button {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+}
+
+/* Styles links used for viewing documents and Tax Returns. */
+.view-button {
+    display: inline-block;
+    padding: 10px 18px;
+    background: #1f4e79;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+/* Changes the button appearance when the user hovers over it. */
+.view-button:hover {
+    background: #163a5c;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+/*CLIENT TAX RETURN HISTORY*/
+
+/* Creates spacing between Tax Return history cards. */
+.tax-return-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+/* Styles each Tax Return history card. */
+.client-tax-return-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px 24px;
+    background: #ffffff;
+    border: 1px solid #e1e6eb;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+/* Keeps the Tax Return information on the left. */
+.client-tax-return-info {
+    flex: 1;
+}
+
+/* Styles the Financial Year heading. */
+.client-tax-return-info h3 {
+    margin: 0 0 14px;
+    color: #263238;
+    font-size: 17px;
+}
+
+/* Displays Tax Return details in a row. */
+.client-tax-return-details {
+    display: flex;
+    gap: 40px;
+}
+
+/* Keeps each detail together. */
+.client-tax-return-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Styles the action area. */
+.client-tax-return-action {
+    flex-shrink: 0;
+}
+
+/* Makes the history page responsive on smaller screens. */
+@media (max-width: 700px) {
+    .client-tax-return-card {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .client-tax-return-details {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .client-tax-return-action .view-button {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Covers the page while the submission popup is open. */
+.submission-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Creates the centred submission popup. */
+.submission-modal {
+    width: 400px;
+    max-width: 90%;
+    padding: 35px;
+    background: #ffffff;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Displays the success icon. */
+.submission-icon {
+    width: 55px;
+    height: 55px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: #d1e7dd;
+    color: #0f5132;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 55px;
+}
+
+/* Styles the popup heading. */
+.submission-modal h2 {
+    margin-bottom: 10px;
+}
+
+/* Styles the popup message. */
+.submission-modal p {
+    margin-bottom: 25px;
+    color: #555555;
+}
+
+/* Styles the Close button. */
+.modal-close-button {
+    padding: 10px 28px;
+    border: none;
+    border-radius: 6px;
+    background: #1f4e79;
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Changes the button when hovered. */
+.modal-close-button:hover {
+    opacity: 0.9;
+}
+
+/* Adds spacing between fields in the Staff Review form. */
+.staff-review-form .tax-field {
+    margin-bottom: 22px;
+}
+
+/* Removes extra space below the final field. */
+.staff-review-form .tax-field:last-of-type {
+    margin-bottom: 0;
+}
+
+/* Adds space between Staff Notes and the review button. */
+.staff-review-form .submit-button {
+    margin-top: 20px;
+}
+
+/* Container for the Staff document filters. */
+.document-filter {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #f8f9fa;
+}
+
+/* Places the filter controls in one row. */
+.document-filter form {
+    display: flex;
+    align-items: flex-end;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+/* Groups each filter label and input. */
+.filter-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Styles the filter labels. */
+.filter-field label {
+    font-weight: 600;
+}
+
+/* Styles the dropdowns. */
+.filter-field select {
+    min-width: 180px;
+    padding: 9px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: white;
+}
+
+/* Styles the Filter button. */
+.filter-button {
+    padding: 9px 18px;
+    border: none;
+    border-radius: 5px;
+    background: #1f4e79;
+    color: white;
+    cursor: pointer;
+}
+
+/* Slightly changes the button when hovered. */
+.filter-button:hover {
+    opacity: 0.9;
+}
+
+/* Styles the Clear button. */
+.clear-filter-button {
+    padding: 9px 18px;
+    border-radius: 5px;
+    background: #e5e5e5;
+    color: #333;
+    text-decoration: none;
+}
+
+/* Changes the Clear button when hovered. */
+.clear-filter-button:hover {
+    background: #d5d5d5;
+}
+
+/* UPLOAD PAGE */
+
+/* Main container for the upload page. */
+.upload-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 45px 30px;
+}
+
+/* Upload form card. */
+.upload-card {
+    background: white;
+    border: 1px solid #e2e7ec;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Groups each upload form field. */
+.upload-field {
+    margin-bottom: 20px;
+}
+
+/* Upload form labels. */
+.upload-field label {
+    display: block;
+    margin-bottom: 8px;
+    color: #263238;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Styles the Document Type dropdown. */
+.upload-field select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccd5dd;
+    border-radius: 6px;
+    background: white;
+    color: #4f5b66;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+/* File upload field. */
+.upload-field input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccd5dd;
+    border-radius: 6px;
+    background: white;
+    color: #4f5b66;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+/* Focus effect for upload fields. */
+.upload-field select:focus,
+.upload-field input[type="file"]:focus {
+    outline: none;
+    border-color: #1f4e79;
+}
+
+/* Displays validation errors directly below the related field. */
+.upload-field-error {
+    display: block;
+    margin-top: 6px;
+    color: #c62828;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* Upload button. */
+.upload-button {
+    border: none;
+    background: #1f4e79;
+    color: white;
+    padding: 11px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* Upload button hover effect. */
+.upload-button:hover {
+    background: #163a5c;
+}

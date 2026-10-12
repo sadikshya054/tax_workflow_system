@@ -1,0 +1,155 @@
+{% extends "base_dashboard.html" %}
+
+{% block title %}
+Client Dashboard | Tax Workflow System
+{% endblock %}
+
+{% block content %}
+
+<!-- Dashboard header. -->
+<div class="dashboard-header">
+
+    <div>
+        <h1>Welcome, {{ request.user.username }}</h1>
+        <p>Client Dashboard</p>
+    </div>
+
+    <!-- Notification bell for Client updates. -->
+    <div class="notification-wrapper">
+
+        <button
+            class="notification-button"
+            type="button"
+        >
+            🔔
+
+            <!-- Displays the number of unread notifications. -->
+            {% if unread_count > 0 %}
+                <span class="notification-count">
+                    {{ unread_count }}
+                </span>
+            {% endif %}
+        </button>
+
+        <!-- Notification panel. -->
+        <div class="notification-panel">
+
+            <div class="notification-panel-header">
+                <strong>Notifications</strong>
+            </div>
+
+            {% if notifications %}
+
+                {% for notification in notifications %}
+
+                    <!-- Allows the Client to open and read the notification. -->
+                    <form
+                        method="POST"
+                        action="{% url 'mark_notification_read' notification.id %}"
+                        class="notification-form"
+                    >
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="notification-item {% if not notification.is_read %}unread{% endif %}"
+                        >
+                            <p>{{ notification.message }}</p>
+                            <small>{{ notification.created_at }}</small>
+                        </button>
+
+                    </form>
+
+                {% endfor %}
+
+            {% else %}
+
+                <!-- Message displayed when there are no notifications. -->
+                <div class="notification-empty">
+                    No notifications yet.
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Main Client dashboard options. -->
+<section class="dashboard-cards">
+
+    <!-- Provides access to the Client's document workflow. -->
+    <div class="dashboard-card">
+
+        <h3>Document Status</h3>
+
+        <p>
+            Check the status of your uploaded documents and Staff feedback.
+        </p>
+
+        <!-- Takes the Client to their document list. -->
+        <a href="{% url 'my_documents' %}">
+            Check Status
+        </a>
+
+    </div>
+
+    <!-- Provides access to the Client's assigned tasks. -->
+    <div class="dashboard-card">
+
+        <h3>My Tasks</h3>
+
+        <p>
+            View your assigned tasks, due dates and completion status.
+        </p>
+
+        <!-- Takes the Client to their assigned tasks. -->
+        <a href="{% url 'my_tasks' %}">
+            View My Tasks
+        </a>
+
+    </div>
+
+    <!-- Provides access to the Client's tax return details. -->
+    <div class="dashboard-card">
+
+        <h3>Tax Return</h3>
+
+        <p>
+            Complete your tax return details and provide information for Staff review.
+        </p>
+
+        <!-- Opens the Tax Return form. -->
+        <a href="{% url 'tax_return_details' %}">
+            Tax Return Form
+        </a>
+
+        <!-- Opens the Client's Tax Return history. -->
+        <a href="{% url 'my_tax_returns' %}">
+            Tax Return History
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+
+<script>
+    // Opens and closes the notification panel when the bell is clicked.
+    const notificationButton = document.querySelector('.notification-button');
+    const notificationPanel = document.querySelector('.notification-panel');
+
+    if (notificationButton && notificationPanel) {
+        notificationButton.addEventListener('click', function () {
+            notificationPanel.classList.toggle('show');
+        });
+    }
+</script>
+
+{% endblock %}
+
